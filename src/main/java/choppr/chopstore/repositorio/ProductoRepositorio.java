@@ -15,6 +15,10 @@ public interface ProductoRepositorio extends JpaRepository <Producto, Integer> {
 
     public Producto findProductoByIdproducto (Integer idproducto);
 
+    public List <Producto> findProductosByIdusuario (Integer idusuario);
+
+    public void delete (Producto producto);
+
     @ Query (value = "SELECT * FROM producto JOIN categoria WHERE producto.idcategoria = categoria.idcategoria AND categoria.nombre = :c AND producto.nombre LIKE :pc", nativeQuery = true)
     public List <Producto> buscaCoincidenciasPorCategoria (@ Param ("pc") String palabraClave, @ Param ("c") String categoria);
 

@@ -1,0 +1,124 @@
+.contenedor-estrellas {
+    position: relative;
+    display: inline-block;
+    color: transparent
+}
+
+.contenedor-estrellas::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '★★★★★';
+    color: #e6e6e6
+}
+
+.contenedor-estrellas::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '★★★★★';
+    color: #17ccd3;
+    overflow: hidden
+}
+
+.estrellas-0::after { width: 0% }
+.estrellas-1::after { width: 1% }
+.estrellas-2::after { width: 2% }
+.estrellas-3::after { width: 3% }
+.estrellas-4::after { width: 4% }
+.estrellas-5::after { width: 5% }
+.estrellas-6::after { width: 6% }
+.estrellas-7::after { width: 7% }
+.estrellas-8::after { width: 8% }
+.estrellas-9::after { width: 9% }
+.estrellas-10::after { width: 10% }
+.estrellas-11::after { width: 11% }
+.estrellas-12::after { width: 12% }
+.estrellas-13::after { width: 13% }
+.estrellas-14::after { width: 14% }
+.estrellas-15::after { width: 15% }
+.estrellas-16::after { width: 16% }
+.estrellas-17::after { width: 17% }
+.estrellas-18::after { width: 18% }
+.estrellas-19::after { width: 19% }
+.estrellas-20::after { width: 20% }
+.estrellas-21::after { width: 21% }
+.estrellas-22::after { width: 22% }
+.estrellas-23::after { width: 23% }
+.estrellas-24::after { width: 24% }
+.estrellas-25::after { width: 25% }
+.estrellas-26::after { width: 26% }
+.estrellas-27::after { width: 27% }
+.estrellas-28::after { width: 28% }
+.estrellas-29::after { width: 29% }
+.estrellas-30::after { width: 30% }
+.estrellas-31::after { width: 31% }
+.estrellas-32::after { width: 32% }
+.estrellas-33::after { width: 33% }
+.estrellas-34::after { width: 34% }
+.estrellas-35::after { width: 35% }
+.estrellas-36::after { width: 36% }
+.estrellas-37::after { width: 37% }
+.estrellas-38::after { width: 38% }
+.estrellas-39::after { width: 39% }
+.estrellas-40::after { width: 40% }
+.estrellas-41::after { width: 41% }
+.estrellas-42::after { width: 42% }
+.estrellas-43::after { width: 43% }
+.estrellas-44::after { width: 44% }
+.estrellas-45::after { width: 45% }
+.estrellas-46::after { width: 46% }
+.estrellas-47::after { width: 47% }
+.estrellas-48::after { width: 48% }
+.estrellas-49::after { width: 49% }
+.estrellas-50::after { width: 50% }
+.estrellas-51::after { width: 51% }
+.estrellas-52::after { width: 52% }
+.estrellas-53::after { width: 53% }
+.estrellas-54::after { width: 54% }
+.estrellas-55::after { width: 55% }
+.estrellas-56::after { width: 56% }
+.estrellas-57::after { width: 57% }
+.estrellas-58::after { width: 58% }
+.estrellas-59::after { width: 59% }
+.estrellas-60::after { width: 60% }
+.estrellas-61::after { width: 61% }
+.estrellas-62::after { width: 62% }
+.estrellas-63::after { width: 63% }
+.estrellas-64::after { width: 64% }
+.estrellas-65::after { width: 65% }
+.estrellas-66::after { width: 66% }
+.estrellas-67::after { width: 67% }
+.estrellas-68::after { width: 68% }
+.estrellas-69::after { width: 69% }
+.estrellas-70::after { width: 70% }
+.estrellas-71::after { width: 71% }
+.estrellas-72::after { width: 72% }
+.estrellas-73::after { width: 73% }
+.estrellas-74::after { width: 74% }
+.estrellas-75::after { width: 75% }
+.estrellas-76::after { width: 76% }
+.estrellas-77::after { width: 77% }
+.estrellas-78::after { width: 78% }
+.estrellas-79::after { width: 79% }
+.estrellas-80::after { width: 80% }
+.estrellas-81::after { width: 81% }
+.estrellas-82::after { width: 82% }
+.estrellas-83::after { width: 83% }
+.estrellas-84::after { width: 84% }
+.estrellas-85::after { width: 85% }
+.estrellas-86::after { width: 86% }
+.estrellas-87::after { width: 87% }
+.estrellas-88::after { width: 88% }
+.estrellas-89::after { width: 89% }
+.estrellas-90::after { width: 90% }
+.estrellas-91::after { width: 91% }
+.estrellas-92::after { width: 92% }
+.estrellas-93::after { width: 93% }
+.estrellas-94::after { width: 94% }
+.estrellas-95::after { width: 95% }
+.estrellas-96::after { width: 96% }
+.estrellas-97::after { width: 97% }
+.estrellas-98::after { width: 98% }
+.estrellas-99::after { width: 99% }
+.estrellas-100::after { width: 100% }

@@ -4,6 +4,8 @@ import choppr.chopstore.modelo.Producto;
 import choppr.chopstore.repositorio.ProductoRepositorio;
 import choppr.chopstore.servicio.ProductoServicio;
 import choppr.chopstore.datos.ProductoDatos;
+import choppr.chopstore.excepciones.ElementNotFoundException;
+import choppr.chopstore.excepciones.ForbiddenException;
 
 import java.util.Random;
 import java.util.Iterator;
@@ -45,9 +47,22 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @ Override
+    public ProductoDatos [] obtenProductosDeUsuario (String idusuario) {
+        List <Producto> productos = productoRepositorio.findProductosByIdusuario (Integer.parseInt (idusuario));
+        if (productos.size () == 0) return null;
+        ProductoDatos [] productosUsuario = new ProductoDatos [productos.size ()];
+        int indice = 0;
+        for (Producto producto : productos) {
+            productosUsuario [indice] = new ProductoDatos (producto);
+            indice ++;
+        }
+        return productosUsuario;
+    }
+
+    @ Override
     public ProductoDatos consultaPorId (String idproducto) {
         Producto coincidencia = productoRepositorio.findProductoByIdproducto (Integer.parseInt (idproducto));
-        if (coincidencia == null) return null;
+        if (coincidencia == null) throw new ElementNotFoundException ();
         ProductoDatos producto = new ProductoDatos (coincidencia);
         return producto;
     }
@@ -93,6 +108,14 @@ public class ProductoServicioImpl implements ProductoServicio {
             indice ++;
         }
         return masVendidos;
+    }
+
+    @ Override
+    public void eliminaProducto (String idusuario, String idproducto) {
+        Producto producto = productoRepositorio.findProductoByIdproducto (Integer.parseInt (idproducto));
+        if (producto == null) throw new ElementNotFoundException ();
+        if (producto.getIdusuario () != Integer.parseInt (idusuario)) throw new ForbiddenException ();
+        productoRepositorio.delete (producto);
     }
 
 }

@@ -10,6 +10,10 @@ function consultaProducto (id) {
     solicitud ("post", "/producto", {idproducto : id})
 }
 
+function eliminarProducto (id) {
+    solicitud ("post", "/elimina", {idproducto : id})
+}
+
 function solicitud (metodo, direccion, parametros) {
     const formulario = document.createElement ("form");
     formulario.method = metodo;

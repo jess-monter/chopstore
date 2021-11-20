@@ -28,7 +28,10 @@ public class ChopstoreControlador {
     }
 
     @ RequestMapping ("/vendedor")
-    public String vendedor () {
+    public String vendedor (Principal principal, Model modelo) {
+        //Requiere que estén implementado el sistema de inicio/cierre de sesión
+        //modelo.addAttribute ("productos", productoServicio.obtenProductosDeUsuario (principal.getName ()));
+        modelo.addAttribute ("productos", productoServicio.obtenProductosDeUsuario ("2"));
         return "vendedor";
     }
 
@@ -62,6 +65,16 @@ public class ChopstoreControlador {
         modelo.addAttribute ("resenas", resenas);
         modelo.addAttribute ("porcentaje", porcentaje [0]);
         return "producto";
+    }
+
+    @ PostMapping ("/elimina")
+    public String elimina (HttpServletRequest peticion, Principal principal) {
+        //Requiere que estén implementado el sistema de inicio/cierre de sesión
+        //String idusuario = principal.getName ();
+        String idusuario = "2";
+        String idproducto = peticion.getParameter ("idproducto");
+        productoServicio.eliminaProducto (idusuario, idproducto);
+        return "redirect:/vendedor";
     }
 
 }

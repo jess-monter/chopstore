@@ -19,6 +19,7 @@ public class ProductoDatos {
     public ProductoDatos (Producto producto) {
 
         idproducto = producto.getIdproducto ();
+        categoria = producto.getCategoria ().getNombre ();
         nombre = producto.getNombre ();
         descripcion = producto.getDescripcion ();
         precio = producto.getPrecio ();

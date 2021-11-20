@@ -4,6 +4,7 @@ import choppr.chopstore.modelo.Producto;
 import choppr.chopstore.repositorio.ProductoRepositorio;
 import choppr.chopstore.servicio.ProductoServicio;
 import choppr.chopstore.datos.ProductoDatos;
+import choppr.chopstore.repositorio.InvolucrarRepositorio;
 import choppr.chopstore.excepciones.ElementNotFoundException;
 import choppr.chopstore.excepciones.ForbiddenException;
 
@@ -19,6 +20,9 @@ public class ProductoServicioImpl implements ProductoServicio {
     
     @ Autowired
     private ProductoRepositorio productoRepositorio;
+
+    @ Autowired
+    private InvolucrarRepositorio involucrarRepositorio;
 
     @ Override
     public ProductoDatos [] [] buscaProductos (String busqueda, String categoria) {
@@ -98,12 +102,12 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     @ Override
     public ProductoDatos [] obtenProductosMasVendidos () {
+        Producto producto;
         ProductoDatos [] masVendidos = new ProductoDatos [4];
-        // Segunda Iteración
-        List <Producto> todosProductos = productoRepositorio.findAll ();
+        List <Object []> ventas = involucrarRepositorio.consultaMayoresVentas ();
         int indice = 0;
-        for (Producto producto : todosProductos) {
-            if (indice == 4) break;
+        for (Object [] arreglo : ventas) {
+            producto = productoRepositorio.findProductoByIdproducto ((Integer) arreglo [0]);
             masVendidos [indice] = new ProductoDatos (producto);
             indice ++;
         }

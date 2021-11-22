@@ -1,10 +1,55 @@
-.contenedor-estrellas {
+.seleccionar-estrellas {
+    font-size: 0;
+    unicode-bidi: bidi-override;
+    direction: rtl
+}
+
+.seleccionar-estrellas * {
+    font-size: 40px
+}
+
+.seleccionar-estrellas > input {
+    display: none
+}
+
+.seleccionar-estrellas > input + label {
+    display: inline-block;
+    overflow: hidden;
+    text-indent: 9999px;
+    width: 1em;
+    white-space: nowrap;
+    cursor: pointer
+}
+
+.seleccionar-estrellas > input + label::before {
+    display: inline-block;
+    text-indent: -9999px;
+    content: "★";
+    color: #e6e6e6
+}
+
+.seleccionar-estrellas > input:checked ~ label::before, .seleccionar-estrellas > input + label:hover ~ label::before, .seleccionar-estrellas > input + label:hover::before {
+    content: "★";
+    color: #17ccd3
+}
+
+.seleccionar-estrellas:hover > input + label::before {
+    content: "★";
+    color: #e6e6e6
+}
+
+.seleccionar-estrellas:hover > input + label:hover ~ label::before, .seleccionar-estrellas:hover > input + label:hover::before {
+    content: "★";
+    color: #17ccd3
+}
+
+.mostrar-estrellas {
     position: relative;
     display: inline-block;
     color: transparent
 }
 
-.contenedor-estrellas::before {
+.mostrar-estrellas::before {
     position: absolute;
     top: 0;
     left: 0;
@@ -12,7 +57,7 @@
     color: #e6e6e6
 }
 
-.contenedor-estrellas::after {
+.mostrar-estrellas::after {
     position: absolute;
     top: 0;
     left: 0;
@@ -21,16 +66,6 @@
     overflow: hidden
 }
 
-.estrellas-0::after { width: 0% }
-.estrellas-1::after { width: 1% }
-.estrellas-2::after { width: 2% }
-.estrellas-3::after { width: 3% }
-.estrellas-4::after { width: 4% }
-.estrellas-5::after { width: 5% }
-.estrellas-6::after { width: 6% }
-.estrellas-7::after { width: 7% }
-.estrellas-8::after { width: 8% }
-.estrellas-9::after { width: 9% }
 .estrellas-10::after { width: 10% }
 .estrellas-11::after { width: 11% }
 .estrellas-12::after { width: 12% }

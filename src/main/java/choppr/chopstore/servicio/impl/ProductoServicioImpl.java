@@ -35,7 +35,7 @@ public class ProductoServicioImpl implements ProductoServicio {
             if (busqueda.equals ("")) coincidencias.addAll (productoRepositorio.buscaTodasCategorias (categoria));
             else for (String clave : palabrasClave) if (! clave.equals ("")) coincidencias.addAll (productoRepositorio.buscaCoincidenciasPorCategoria ("%" + clave + "%", categoria));
         }
-        if (coincidencias.size () == 0) return null;
+        if (coincidencias.isEmpty ()) return null;
         ProductoDatos [] [] productosAgrupados = new ProductoDatos [(coincidencias.size () + 3) >> 2] [4];
         int i = 0;
         int j = 0;
@@ -53,7 +53,7 @@ public class ProductoServicioImpl implements ProductoServicio {
     @ Override
     public ProductoDatos [] obtenProductosDeUsuario (String idusuario) {
         List <Producto> productos = productoRepositorio.findProductosByIdusuario (Integer.parseInt (idusuario));
-        if (productos.size () == 0) return null;
+        if (productos.isEmpty ()) return null;
         ProductoDatos [] productosUsuario = new ProductoDatos [productos.size ()];
         int indice = 0;
         for (Producto producto : productos) {

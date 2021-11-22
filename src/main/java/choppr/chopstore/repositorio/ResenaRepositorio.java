@@ -11,4 +11,8 @@ public interface ResenaRepositorio extends JpaRepository <Resena, Integer> {
 
     public List <Resena> findResenasByIdproducto (Integer idproducto);
 
+    public Resena findResenaByIdusuarioAndIdproducto (Integer idusuario, Integer idproducto);
+
+    public <S extends Resena> S save (S resena);
+
 }

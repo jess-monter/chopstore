@@ -7,7 +7,7 @@ function buscaProductos () {
 }
 
 function consultaProducto (id) {
-    solicitud ("post", "/producto", {idproducto : id})
+    solicitud ("get", "/producto", {idproducto : id})
 }
 
 function eliminarProducto (id) {
@@ -15,9 +15,9 @@ function eliminarProducto (id) {
 }
 
 function solicitud (metodo, direccion, parametros) {
-    const formulario = document.createElement ("form");
-    formulario.method = metodo;
-    formulario.action = direccion;
+    const formulario = document.createElement ("form")
+    formulario.method = metodo
+    formulario.action = direccion
     for (const llave in parametros) {
         if (parametros.hasOwnProperty (llave)) {
             const campo = document.createElement ("input")

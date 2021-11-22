@@ -7,6 +7,7 @@ import choppr.chopstore.servicio.ResenaServicio;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -55,15 +56,20 @@ public class ChopstoreControlador {
         return "busqueda";
     }
 
-    @ PostMapping ("/producto")
-    public String producto (HttpServletRequest peticion, Model modelo) {
+    @ GetMapping ("/producto")
+    public String producto (HttpServletRequest peticion, Model modelo, Principal principal) {
+        //Requiere que estén implementado el sistema de inicio/cierre de sesión
+        //String idusuario = principal.getName ();
+        String idusuario = "1";
         String idproducto = peticion.getParameter ("idproducto");
         ProductoDatos producto = productoServicio.consultaPorId (idproducto);
         String [] porcentaje = new String [1];
         ResenaDatos [] resenas = resenaServicio.obtenResenasCalificacion (idproducto, porcentaje);
+        int estado = resenaServicio.estadoResena (idusuario, idproducto);
         modelo.addAttribute ("producto", producto);
         modelo.addAttribute ("resenas", resenas);
         modelo.addAttribute ("porcentaje", porcentaje [0]);
+        modelo.addAttribute ("estado", estado);
         return "producto";
     }
 
@@ -77,4 +83,16 @@ public class ChopstoreControlador {
         return "redirect:/vendedor";
     }
 
+    @ PostMapping ("/resena")
+    public String resena (HttpServletRequest peticion, Model modelo, Principal principal) {
+        //Requiere que estén implementado el sistema de inicio/cierre de sesión
+        //String idusuario = principal.getName ();
+        String idusuario = "1";
+        String idproducto = peticion.getParameter ("idproducto");
+        String comentario = peticion.getParameter ("comentario");
+        String calificacion = peticion.getParameter ("calificacion");
+        resenaServicio.publicaResena (idusuario, idproducto, comentario, calificacion);
+        return "redirect:/producto?idproducto=" + idproducto;
+    }
+    
 }

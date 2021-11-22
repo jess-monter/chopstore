@@ -21,8 +21,18 @@
                     <img class="cuadro-g-img mx-auto" th:src="${producto.imagen}" alt="Imagen del producto">
                 </div>
                 <div class="col">
-                    <div class="row">
-                        <button type="button" class="btn btn-primary btn-lg btn-block btn-claro-negro">Agregar al carrito<i class="fas fa-cart-plus" style="margin-left: 5%"></i></button>
+                    <div class="row align-items-center">
+                        <div class="col-2">
+                            <div class="row me-1">
+                                <input type=number value="1" min="1" th:max="${producto.cantidad}">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <button th:unless="${producto.cantidad == 0}" type="button" class="btn btn-lg btn-block btn-claro-negro">Agregar al carrito<i class="fas fa-cart-plus" style="margin-left: 5%"></i></button>
+                                <button th:if="${producto.cantidad == 0}" type="button" class="btn btn-lg btn-block btn-secondary" disabled>Agregar al carrito<i class="fas fa-cart-plus" style="margin-left: 5%"></i></button>
+                            </div>
+                        </div>
                     </div>
                     <div class="row mt-3">
                         <h3 class="txt-resalte" th:text="${producto.precio} + ' MXN'"></h3>
@@ -41,7 +51,7 @@
                     </div>
                     <div class="row">
                         <h3 class="txt-negro">Calificación media:</h3>
-                        <div th:unless="${porcentaje == null}"><span th:class="'contenedor-estrellas estrellas-' + ${porcentaje}" style="font-size: 50px">★★★★★</span></div>
+                        <div th:unless="${porcentaje == null}"><span th:class="'mostrar-estrellas estrellas-' + ${porcentaje}" style="font-size: 50px">★★★★★</span></div>
                         <h3 th:if="${porcentaje == null}" class="txt-resalte">Este producto no ha sido calificado</h3>
                     </div>
                 </div>
@@ -53,7 +63,7 @@
                             <div class="fw-bold" th:text="${resena.usuario}"></div>
                             <div th:text="${resena.comentario}"></div>
                         </div>
-                        <span th:class="'contenedor-estrellas estrellas-' + ${20 * resena.calificacion}">★★★★★</span>
+                        <span th:class="'mostrar-estrellas estrellas-' + ${20 * resena.calificacion}">★★★★★</span>
                     </li>    
                 </ol>
                 <ol th:if="${resenas == null}" class="list-group">
@@ -63,6 +73,35 @@
                         </div>
                     </li>    
                 </ol>
+            </div>
+            <div class="row mt-3">
+                <div class="col mb-3">
+                    <div class="row"><h5 class="txt-resalte">Comparte tu opinión</h5></div>
+                    <th:block th:switch="${estado}">
+                        <div th:case="0" class="row"><p>Debes comprar este producto antes de dejar una reseña</p></div>
+                        <div th:case="1" clas="row">
+                            <form method="post" action="/resena">
+                                <input type="hidden" name="idproducto" th:value="${producto.idproducto}">
+                                <div class="col-12">
+                                    <span class="seleccionar-estrellas">
+                                        <input type="radio" id="calificacion-5" name="calificacion" value="5" required/><label for="calificacion-5"></label>
+                                        <input type="radio" id="calificacion-4" name="calificacion" value="4" required/><label for="calificacion-4"></label>
+                                        <input type="radio" id="calificacion-3" name="calificacion" value="3" required checked/><label for="calificacion-3"></label>
+                                        <input type="radio" id="calificacion-2" name="calificacion" value="2" required/><label for="calificacion-2"></label>
+                                        <input type="radio" id="calificacion-1" name="calificacion" value="1" required/><label for="calificacion-1"></label>
+                                    </span>
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control" name="comentario" placeholder="Escribe aquí tu comentario" rows="2" maxlength="256" required></textarea>
+                                </div>
+                                <div class="col-4 mt-3">
+                                    <button class="btn btn-med-blanco" type="submit">Publicar Reseña</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div th:case="2" class="row"><p>Ya has dejado una reseña sobre este producto</p></div>
+                    </th:block>
+                </div>
             </div>
         </div>
     </body>

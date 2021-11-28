@@ -24,22 +24,22 @@
 .seleccionar-estrellas > input + label::before {
     display: inline-block;
     text-indent: -9999px;
-    content: "★";
+    content: '★';
     color: #e6e6e6
 }
 
 .seleccionar-estrellas > input:checked ~ label::before, .seleccionar-estrellas > input + label:hover ~ label::before, .seleccionar-estrellas > input + label:hover::before {
-    content: "★";
+    content: '★';
     color: #17ccd3
 }
 
 .seleccionar-estrellas:hover > input + label::before {
-    content: "★";
+    content: '★';
     color: #e6e6e6
 }
 
 .seleccionar-estrellas:hover > input + label:hover ~ label::before, .seleccionar-estrellas:hover > input + label:hover::before {
-    content: "★";
+    content: '★';
     color: #17ccd3
 }
 

@@ -76,44 +76,43 @@ ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Accesorios");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Alimentos y Bebidas");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Arte");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Bebé");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Belleza");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Deportes");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Electrónicos");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Hogar y Cocina");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Industria y Ciencia");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Instrumentos Musicales");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Jugetes");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Libros y Revistas");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Mascotas");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Música");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Oficina y Papeleria");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Películas y Series");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Ropa y Zapatos");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Salud");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Software");
-INSERT INTO categoria (nombre)
+INSERT INTO chopstore.categoria (nombre)
 VALUES ("Videojuegos");
-

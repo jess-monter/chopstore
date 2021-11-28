@@ -15,6 +15,14 @@ import java.util.HashSet;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * Clase que implementa la interfaz ProductoServicio
+ * @author Eric Toporek Coca
+ * @author Francisco Alejandro Arganis Ramı́rez
+ * @author Jessica Monter Gallardo
+ * @version 1.0
+ */
+
 @ Service
 public class ProductoServicioImpl implements ProductoServicio {
     
@@ -23,6 +31,13 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     @ Autowired
     private InvolucrarRepositorio involucrarRepositorio;
+
+    /**
+     * Regresa los productos que coninciden con los parámetros de búsqueda especificados
+     * @param busqueda es una cadena con palabras clave para hacer buscar coincidencias con el nombre de los productos
+     * @param categoria es la categoría donde se van a buscar los productos
+     * @return un arreglo con los productos encontrados, organizados por grupos de 4 productos, o null si no se encontraron productos
+     */
 
     @ Override
     public ProductoDatos [] [] buscaProductos (String busqueda, String categoria) {
@@ -50,6 +65,12 @@ public class ProductoServicioImpl implements ProductoServicio {
         return productosAgrupados;
     }
 
+    /**
+     * Regresa los productos del usuario especificado
+     * @param idusario es el identificador del usuario
+     * @return un arreglo con todos los productos del usuario o null si el usuario no tiene productos
+     */
+
     @ Override
     public ProductoDatos [] obtenProductosDeUsuario (String idusuario) {
         List <Producto> productos = productoRepositorio.findProductosByIdusuario (Integer.parseInt (idusuario));
@@ -63,6 +84,13 @@ public class ProductoServicioImpl implements ProductoServicio {
         return productosUsuario;
     }
 
+    /**
+     * Regresa el producto especificado
+     * @param idproducto es el identificador del producto
+     * @return el producto con el identificador especificado
+     * @throws ElementNotFoundException si no exíste el producto
+     */
+
     @ Override
     public ProductoDatos consultaPorId (String idproducto) {
         Producto coincidencia = productoRepositorio.findProductoByIdproducto (Integer.parseInt (idproducto));
@@ -70,6 +98,12 @@ public class ProductoServicioImpl implements ProductoServicio {
         ProductoDatos producto = new ProductoDatos (coincidencia);
         return producto;
     }
+
+    /**
+     * Regresa los productos recomendados para el usuario especificado
+     * @param idusuario es el identificador del usuario
+     * @return un arreglo de 4 productos recomendados
+     */
 
     @ Override
     public ProductoDatos [] recomiendaProductos (String idusuario) {
@@ -100,6 +134,11 @@ public class ProductoServicioImpl implements ProductoServicio {
         return recomendaciones;
     }
 
+    /**
+     * Regresa los productos más vendidos
+     * @return un arreglo de los 4 productos más vendidos
+     */
+
     @ Override
     public ProductoDatos [] obtenProductosMasVendidos () {
         Producto producto;
@@ -114,6 +153,14 @@ public class ProductoServicioImpl implements ProductoServicio {
         return masVendidos;
     }
 
+    /**
+     * Elimina el producto especificado
+     * @param idusuario es el identificador del usuario que desea eliminar el producto
+     * @param idproducto es el identificador del producto que se desea eliminar
+     * @throws ElementNotFoundException si no exíste el producto
+     * @throws ForbiddenException si el usuario no es dueño del producto
+     */
+    
     @ Override
     public void eliminaProducto (String idusuario, String idproducto) {
         Producto producto = productoRepositorio.findProductoByIdproducto (Integer.parseInt (idproducto));

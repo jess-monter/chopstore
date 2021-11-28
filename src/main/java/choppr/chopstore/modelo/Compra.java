@@ -4,6 +4,14 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ * Clase que representa una instancia de entidad de la tabla compra en la base de datos
+ * @author Eric Toporek Coca
+ * @author Francisco Alejandro Arganis Ramı́rez
+ * @author Jessica Monter Gallardo
+ * @version 1.0
+ */
+
 @ Data
 @ Entity
 @ Table (name = "compra")

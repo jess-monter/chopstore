@@ -14,6 +14,14 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
+/**
+ * Clase que atiende las peticiones al servidor
+ * @author Eric Toporek Coca
+ * @author Francisco Alejandro Arganis Ramı́rez
+ * @author Jessica Monter Gallardo
+ * @version 1.0
+ */
+
 @ Controller
 public class ChopstoreControlador {
 
@@ -23,10 +31,22 @@ public class ChopstoreControlador {
     @ Autowired
     private ResenaServicio resenaServicio;
 
+    /**
+     * Atiende una petición de la página de inicio cuando no se ha iniciado sesión
+     * @return el nombre de la página de inicio
+     */
+
     @ RequestMapping ("/")
     public String inicio () {
         return "inicio";
     }
+
+    /**
+     * Atiende una petición de la página de inicio cuando se ha iniciado sesión como vendedor
+     * @param principal es el usuario autentificado
+     * @param modelo es el contenedor con la información que se envía a la página
+     * @return el nombre de la página de inicio de vendedor
+     */
 
     @ RequestMapping ("/vendedor")
     public String vendedor (Principal principal, Model modelo) {
@@ -36,6 +56,13 @@ public class ChopstoreControlador {
         return "vendedor";
     }
 
+    /**
+     * Atiende una petición de la página de inicio cuando se ha iniciado sesión como comprador
+     * @param principal es el usuario autentificado
+     * @param modelo es el contenedor con la información que se envía a la página
+     * @return el nombre de la página de inicio de comprador
+     */
+
     @ RequestMapping ("/comprador")
     public String comprador (Principal principal, Model modelo) {
         //Requiere que estén implementado el sistema de inicio/cierre de sesión
@@ -44,6 +71,13 @@ public class ChopstoreControlador {
         modelo.addAttribute ("masvendidos", productoServicio.obtenProductosMasVendidos ());
         return "comprador";
     }
+
+    /**
+     * Atiende una petición de búsuqeda
+     * @param petición es el contenedor con los parámetros de la petición
+     * @param modelo es el contenedor con la información que se envía a la página
+     * @return el nombre de la página de búsqueda
+     */
 
     @ PostMapping ("/busqueda")
     public String busqueda (HttpServletRequest peticion, Model modelo) {
@@ -56,8 +90,16 @@ public class ChopstoreControlador {
         return "busqueda";
     }
 
+    /**
+     * Atiende una petición de consultar producto
+     * @param petición es el contenedor con los parámetros de la petición
+     * @param principal es el usuario autentificado
+     * @param modelo es el contenedor con la información que se envía a la página
+     * @return el nombre de la página de producto
+     */
+
     @ GetMapping ("/producto")
-    public String producto (HttpServletRequest peticion, Model modelo, Principal principal) {
+    public String producto (HttpServletRequest peticion, Principal principal, Model modelo) {
         //Requiere que estén implementado el sistema de inicio/cierre de sesión
         //String idusuario = principal.getName ();
         String idusuario = "1";
@@ -73,6 +115,13 @@ public class ChopstoreControlador {
         return "producto";
     }
 
+    /**
+     * Atiende una petición de eliminar producto
+     * @param petición es el contenedor con los parámetros de la petición
+     * @param principal es el usuario autentificado
+     * @return el nombre de la página de inicio de vendedor
+     */
+
     @ PostMapping ("/elimina")
     public String elimina (HttpServletRequest peticion, Principal principal) {
         //Requiere que estén implementado el sistema de inicio/cierre de sesión
@@ -83,8 +132,16 @@ public class ChopstoreControlador {
         return "redirect:/vendedor";
     }
 
+    /**
+     * Atiende una petición de publicar reseña
+     * @param petición es el contenedor con los parámetros de la petición
+     * @param principal es el usuario autentificado
+     * @param modelo es el contenedor con la información que se envía a la página
+     * @return el nombre de la página de producto
+     */
+
     @ PostMapping ("/resena")
-    public String resena (HttpServletRequest peticion, Model modelo, Principal principal) {
+    public String resena (HttpServletRequest peticion, Principal principal, Model modelo) {
         //Requiere que estén implementado el sistema de inicio/cierre de sesión
         //String idusuario = principal.getName ();
         String idusuario = "1";

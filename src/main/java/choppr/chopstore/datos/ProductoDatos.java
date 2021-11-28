@@ -4,6 +4,14 @@ import choppr.chopstore.modelo.Producto;
 
 import lombok.Data;
 
+/**
+ * Clase que representa los datos de un producto y que se puede mandar a la capa de vista sin comprometer información sensible
+ * @author Eric Toporek Coca
+ * @author Francisco Alejandro Arganis Ramı́rez
+ * @author Jessica Monter Gallardo
+ * @version 1.0
+ */
+
 @ Data
 public class ProductoDatos {
     
@@ -15,6 +23,11 @@ public class ProductoDatos {
     private String imagen;
     private Integer cantidad;
     private String detalles;
+
+    /**
+     * Construye un nuevo objeto ProductoDatos a partir de una instancia de entidad de la tabla producto
+     * @param producto un objeto Producto recuperado de la base de datos
+     */
     
     public ProductoDatos (Producto producto) {
 

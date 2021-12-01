@@ -15,6 +15,14 @@ import choppr.chopstore.excepciones.ForbiddenException;
 public interface ProductoServicio {
 
     /**
+     * Crea un nuevo producto
+     * @param productoDatos datos del producto
+     * @return los datos del producto
+     */
+    
+    public ProductoDatos creaProducto (ProductoDatos productoDatos);
+
+    /**
      * Regresa los productos que coninciden con los parámetros de búsqueda especificados
      * @param busqueda es una cadena con palabras clave para hacer buscar coincidencias con el nombre de los productos
      * @param categoria es la categoría donde se van a buscar los productos

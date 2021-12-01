@@ -65,4 +65,15 @@ public interface ProductoServicio {
 
     public void eliminaProducto (String idusuario, String idproducto);
 
+
+    /**
+     * Regresa el producto especificado modificado
+     * @param idproducto es el identificador del producto a modificar
+     * @param productoDatos datos a modificar
+     * @return el producto con el identificador especificado
+     * @throws ElementNotFoundException si no exíste el producto
+     */
+
+    public ProductoDatos editaProducto (String idproducto, ProductoDatos productoDatos);
+
 }

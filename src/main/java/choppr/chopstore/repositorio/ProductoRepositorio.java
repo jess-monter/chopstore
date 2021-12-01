@@ -24,6 +24,13 @@ public interface ProductoRepositorio extends JpaRepository <Producto, Integer> {
      * @return una lista con los resultados de la consulta
      */
 
+    public Producto createProduct(Producto producto);
+
+    /**
+     * Realiza una consulta que recupera todos los productos
+     * @return una lista con los resultados de la consulta
+     */
+
     public List <Producto> findAll ();
 
     /**

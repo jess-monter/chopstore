@@ -10,6 +10,24 @@ function consultaProducto (id) {
     solicitud ("get", "/producto", {idproducto : id})
 }
 
+function crearProducto () {
+    solicitud ("get", "/crear", null)
+}
+
+function actualizaImagen () {
+    let img = $ ("#imagen").val ()
+    if (img != "") {
+        $ ("#muestra-previa").attr ("src", img)
+    }
+}
+
+function actualizaNombre () {
+    let nm = $ ("#nombre").val ()
+    if (nm != "") {
+        $ ("#titulo").text (nm)
+    }
+}
+
 function eliminarProducto (id) {
     solicitud ("post", "/elimina", {idproducto : id})
 }

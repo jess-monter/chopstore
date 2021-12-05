@@ -9,19 +9,10 @@ import choppr.chopstore.excepciones.ForbiddenException;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.0
+ * @version 1.1
  */
 
-public interface ProductoServicio {
-
-    /**
-     * Crea un producto
-     * @param productodatos datos del producto a crear
-     * @return los datos del producto creado
-     */
-    
-    public ProductoDatos creaProducto (ProductoDatos productodatos);
-    
+public interface ProductoServicio {  
 
     /**
      * Regresa los productos que coninciden con los parámetros de búsqueda especificados
@@ -63,6 +54,22 @@ public interface ProductoServicio {
      */
 
     public ProductoDatos [] obtenProductosMasVendidos ();
+
+    /**
+     * Crea un nuevo producto para un usuario
+     * @param idusuario es el identificador del usuario
+     * @param nombreCategoria es el nombre de la categoría del producto
+     * @param nombre es el nombre del producto
+     * @param descripcion es la descripción del producto
+     * @param precio es el precio del producto
+     * @param imagen es la imagen del producto
+     * @param cantidad es la cantidad del producto
+     * @param detalles son los detalles del producto
+     * @throws ElementNotFoundException si no existe la categoría
+     * @throws ForbiddenException si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
+     */
+
+    public void publicaProducto (String idusuario, String nombreCategoria, String nombre, String descripcion, String precio, String imagen, String cantidad, String detalles);
 
     /**
      * Elimina el producto especificado

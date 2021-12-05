@@ -1,13 +1,15 @@
 package choppr.chopstore.servicio.impl;
 
 import choppr.chopstore.modelo.Resena;
+import choppr.chopstore.modelo.Usuario;
+import choppr.chopstore.modelo.Compra;
+import choppr.chopstore.modelo.Producto;
 import choppr.chopstore.repositorio.CompraRepositorio;
 import choppr.chopstore.repositorio.ProductoRepositorio;
 import choppr.chopstore.repositorio.ResenaRepositorio;
 import choppr.chopstore.repositorio.UsuarioRepositorio;
 import choppr.chopstore.servicio.ResenaServicio;
 import choppr.chopstore.datos.ResenaDatos;
-import choppr.chopstore.modelo.Compra;
 import choppr.chopstore.excepciones.ForbiddenException;
 
 import java.util.List;
@@ -19,11 +21,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.0
+ * @version 1.1
  */
 
 @ Service
 public class ResenaServicioImpl implements ResenaServicio {
+
+    static final int MAX_STRING_SIZE = 256;
 
     @ Autowired
     private ResenaRepositorio resenaRepositorio;
@@ -86,24 +90,24 @@ public class ResenaServicioImpl implements ResenaServicio {
      * @param idproducto es el identificador del producto
      * @param comentario es el contenido de la reseña
      * @param calificacion es la calificación de la reseña
-     * @throws ForbiddenException si el usuario no ha comprado el producto, el usuario ya ha reseñado el producto, el comentario es null, el comentario es de longitud mayor a 256 o si la calificación no está entre 1 y 5
+     * @throws ForbiddenException si el usuario no ha comprado el producto, el usuario ya ha reseñado el producto, el comentario es de longitud mayor al máximo permitido o si la calificación no está entre 1 y 5
      */
 
     @ Override
     public void publicaResena (String idusuario, String idproducto, String comentario, String calificacion) {
         if (estadoResena (idusuario, idproducto) != 1) throw new ForbiddenException ();
-        if (comentario == null || comentario.length () > 256) throw new ForbiddenException ();
+        if (comentario.length () > MAX_STRING_SIZE) throw new ForbiddenException ();
         Integer calfInt = Integer.parseInt (calificacion);
         if (calfInt < 1 || 5 < calfInt) throw new ForbiddenException ();
         Resena resena = new Resena ();
-        Integer usuario = Integer.parseInt (idusuario);
-        Integer producto = Integer.parseInt (idproducto);
-        resena.setIdusuario (usuario);
-        resena.setIdproducto (producto);
+        Usuario usuario = usuarioRepositorio.findUsuarioByIdusuario (Integer.parseInt (idusuario));
+        Producto producto = productoRepositorio.findProductoByIdproducto (Integer.parseInt (idproducto));
+        resena.setIdusuario (usuario.getIdusuario ());
+        resena.setIdproducto (producto.getIdproducto ());
         resena.setCalificacion (calfInt);
         resena.setComentario (comentario);
-        resena.setUsuario (usuarioRepositorio.findUsuarioByIdusuario (usuario));
-        resena.setProducto (productoRepositorio.findProductoByIdproducto (producto));
+        resena.setUsuario (usuario);
+        resena.setProducto (producto);
         resenaRepositorio.save (resena);
     }
 

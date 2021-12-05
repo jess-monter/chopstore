@@ -41,6 +41,7 @@ public class Usuario implements UserDetails {
     @ Column (name = "telefono")
     private String telefono;
 
+    @Column(name = "rol")
     @Enumerated(EnumType.STRING)
     private RolUsuario rolUsuario;
 

@@ -19,7 +19,7 @@ import java.security.Principal;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.0
+ * @version 1.3
  */
 
 @ Controller
@@ -33,7 +33,7 @@ public class ChopstoreControlador {
 
     /**
      * Atiende una petición de la página de inicio cuando no se ha iniciado sesión
-     * @return el nombre de la página de inicio
+     * @return la página de inicio
      */
 
     @ RequestMapping ("/")
@@ -45,7 +45,7 @@ public class ChopstoreControlador {
      * Atiende una petición de la página de inicio cuando se ha iniciado sesión como vendedor
      * @param principal es el usuario autentificado
      * @param modelo es el contenedor con la información que se envía a la página
-     * @return el nombre de la página de inicio de vendedor
+     * @return la página de inicio de vendedor
      */
 
     @ RequestMapping ("/vendedor")
@@ -60,7 +60,7 @@ public class ChopstoreControlador {
      * Atiende una petición de la página de inicio cuando se ha iniciado sesión como comprador
      * @param principal es el usuario autentificado
      * @param modelo es el contenedor con la información que se envía a la página
-     * @return el nombre de la página de inicio de comprador
+     * @return la página de inicio de comprador
      */
 
     @ RequestMapping ("/comprador")
@@ -76,7 +76,7 @@ public class ChopstoreControlador {
      * Atiende una petición de búsuqeda
      * @param petición es el contenedor con los parámetros de la petición
      * @param modelo es el contenedor con la información que se envía a la página
-     * @return el nombre de la página de búsqueda
+     * @return la página de búsqueda
      */
 
     @ PostMapping ("/busqueda")
@@ -95,7 +95,7 @@ public class ChopstoreControlador {
      * @param petición es el contenedor con los parámetros de la petición
      * @param principal es el usuario autentificado
      * @param modelo es el contenedor con la información que se envía a la página
-     * @return el nombre de la página de producto
+     * @return la página de producto
      */
 
     @ GetMapping ("/producto")
@@ -116,10 +116,41 @@ public class ChopstoreControlador {
     }
 
     /**
+     * Atiende una petición de la página de crear productos
+     * @return la página de crear productos
+     */
+
+    @ GetMapping ("/crear")
+    public String crear () {
+        return "crear";
+    }
+
+    /**
+     * Atiende una petición de publicar producto
+     * @return la página de inicio de vendedor
+     */
+
+    @ PostMapping ("/publica")
+    public String publica (HttpServletRequest peticion, Principal principal) {
+        //Requiere que estén implementado el sistema de inicio/cierre de sesión
+        //String idusuario = principal.getName ();
+        String idusuario = "2";
+        String categoria = peticion.getParameter ("categoria");
+        String nombre = peticion.getParameter ("nombre");
+        String descripcion = peticion.getParameter ("descripcion");
+        String precio = peticion.getParameter ("precio");
+        String imagen = peticion.getParameter ("imagen");
+        String cantidad = peticion.getParameter ("cantidad");
+        String detalles = peticion.getParameter ("detalles");
+        productoServicio.publicaProducto (idusuario, categoria, nombre, descripcion, precio, imagen, cantidad, detalles);
+        return "redirect:/vendedor";
+    }
+
+    /**
      * Atiende una petición de eliminar producto
      * @param petición es el contenedor con los parámetros de la petición
      * @param principal es el usuario autentificado
-     * @return el nombre de la página de inicio de vendedor
+     * @return la página de inicio de vendedor
      */
 
     @ PostMapping ("/elimina")
@@ -137,7 +168,7 @@ public class ChopstoreControlador {
      * @param petición es el contenedor con los parámetros de la petición
      * @param principal es el usuario autentificado
      * @param modelo es el contenedor con la información que se envía a la página
-     * @return el nombre de la página de producto
+     * @return la página de producto
      */
 
     @ PostMapping ("/resena")

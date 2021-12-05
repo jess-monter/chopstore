@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.0
+ * @version 1.2
  */
 
 @ Repository
@@ -41,6 +41,14 @@ public interface ProductoRepositorio extends JpaRepository <Producto, Integer> {
      */
 
     public List <Producto> findProductosByIdusuario (Integer idusuario);
+
+    /**
+     * Inserta o actualiza, si ya exíste, el producto especificado de la base de datos
+     * @param producto es el producto a insertar o actualizar
+     * @return el producto guardado
+     */
+
+    public <S extends Producto> S save (S resena);
 
     /**
      * Elimina, si exíste, el producto especificado de la base de datos

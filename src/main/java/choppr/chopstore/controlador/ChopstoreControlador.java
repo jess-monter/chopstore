@@ -1,10 +1,16 @@
 package choppr.chopstore.controlador;
 
 import choppr.chopstore.datos.ProductoDatos;
+import choppr.chopstore.datos.SolicitudRegistro;
+import choppr.chopstore.modelo.Usuario;
 import choppr.chopstore.servicio.ProductoServicio;
 import choppr.chopstore.datos.ResenaDatos;
 import choppr.chopstore.servicio.ResenaServicio;
 
+import choppr.chopstore.servicio.impl.RegistroServicio;
+import choppr.chopstore.servicio.impl.UsuarioServicio;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,13 +37,26 @@ public class ChopstoreControlador {
     @ Autowired
     private ResenaServicio resenaServicio;
 
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+
+    @Autowired
+    private RegistroServicio registroService;
+
     /**
      * Atiende una petición de la página de inicio cuando no se ha iniciado sesión
      * @return el nombre de la página de inicio
      */
 
     @ RequestMapping ("/")
-    public String inicio () {
+    public String inicio (Authentication auth, Model modelo) {
+        if(auth != null) {
+            String role = auth.getAuthorities().toString();
+            if (role.contains("VENDEDOR"))
+                return vendedor((Principal)auth.getPrincipal(),modelo);
+            else if (role.contains("COMPRADOR"))
+                return comprador((Principal)auth.getPrincipal(),modelo);
+        }
         return "inicio";
     }
 
@@ -101,8 +120,9 @@ public class ChopstoreControlador {
     @ GetMapping ("/producto")
     public String producto (HttpServletRequest peticion, Principal principal, Model modelo) {
         //Requiere que estén implementado el sistema de inicio/cierre de sesión
-        //String idusuario = principal.getName ();
-        String idusuario = "1";
+        UserDetails usrdet = (UserDetails) principal;
+        Usuario usr = (Usuario) usuarioServicio.loadUserByUsername(usrdet.getUsername());
+        String idusuario = Integer.toString(usr.getIdusuario());
         String idproducto = peticion.getParameter ("idproducto");
         ProductoDatos producto = productoServicio.consultaPorId (idproducto);
         String [] porcentaje = new String [1];
@@ -117,7 +137,7 @@ public class ChopstoreControlador {
 
     /**
      * Atiende una petición de eliminar producto
-     * @param petición es el contenedor con los parámetros de la petición
+     * @param peticion es el contenedor con los parámetros de la petición
      * @param principal es el usuario autentificado
      * @return el nombre de la página de inicio de vendedor
      */
@@ -143,13 +163,21 @@ public class ChopstoreControlador {
     @ PostMapping ("/resena")
     public String resena (HttpServletRequest peticion, Principal principal, Model modelo) {
         //Requiere que estén implementado el sistema de inicio/cierre de sesión
-        //String idusuario = principal.getName ();
-        String idusuario = "1";
+        UserDetails usrdet = (UserDetails) principal;
+        Usuario usr = (Usuario) usuarioServicio.loadUserByUsername(usrdet.getUsername());
+        String idusuario = Integer.toString(usr.getIdusuario());
+        //String idusuario = "1";
         String idproducto = peticion.getParameter ("idproducto");
         String comentario = peticion.getParameter ("comentario");
         String calificacion = peticion.getParameter ("calificacion");
         resenaServicio.publicaResena (idusuario, idproducto, comentario, calificacion);
         return "redirect:/producto?idproducto=" + idproducto;
     }
+
+    @GetMapping("/login")
+    public String viewLoginPage(){return "login";}
+
+    @GetMapping("/register/confirm")
+    public String muestraLog(){return "login";}
     
 }

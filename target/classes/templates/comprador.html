@@ -11,12 +11,27 @@
     </head>
     <body>
         <div th:replace="cabecera :: cabecera-comprador"></div>
-        <div th:unless="${productos == null}" class="container">
+        <div class="container">
             <div class="row mt-3 mb-1">
-                <p class="fw-bold fs-4 txt-resalte" th:text="${busqueda == ''} ? 'Todos los resultados en: ' + ${categoria} : 'Resultados de ' + ${busqueda} + ' en: ' + ${categoria}"><hr class="txt-resalte"></p>
+                <p class="fw-bold fs-4 txt-resalte">Productos destacados<hr class="txt-resalte"></p>
             </div>
-            <div class="row" th:each="arreglo : ${productos}">
-                <div class="col" th:each="producto : ${arreglo}">
+            <div class="row">
+                <h5>Sugerido para tí</h5>
+                <div class="col" th:each="producto : ${recomendaciones}">
+                    <a th:unless="${producto == null}" href="#" th:onclick="'consultaProducto (' + ${producto.idproducto} + ')'" style="text-decoration: none">
+                        <div class="card tarj-prod">
+                            <img class="cuadro-p-img mx-auto" th:src="${producto.imagen}" alt="Imagen del producto">
+                            <div class="card-body">
+                                <p class="card-text txt-negro fw-bold text-center" th:text="${producto.nombre}"></p>
+                                <p class="card-text txt-resalte text-center" th:text="${producto.precio} + ' MXN'"></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <h5>Lo más vendido</h5>
+                <div class="col" th:each="producto : ${masvendidos}">
                     <a th:unless="${producto == null}" href="#" th:onclick="'consultaProducto (' + ${producto.idproducto} + ')'" style="text-decoration: none">
                         <div class="card tarj-prod">
                             <img class="cuadro-p-img mx-auto" th:src="${producto.imagen}" alt="Imagen del producto">
@@ -29,11 +44,6 @@
                 </div>
             </div>
         </div>
-        <div th:if="${productos == null}" class="container">
-            <div class="row mt-3 mb-1">
-                <p class="fw-bold fs-4 txt-resalte" th:text="${busqueda == ''} ? 'No hay resultados en: ' + ${categoria} : 'No hay resultados de ' + ${busqueda} + ' en: ' + ${categoria}"></p>
-            </div>
-        </div>
     </body>
-    <script type="text/javascript" th:src="@{/js/chopstore script.js}"></script>
+    <script type="text/javascript" src="chopstore script.js"></script>
 </html>

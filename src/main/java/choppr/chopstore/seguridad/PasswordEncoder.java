@@ -1,4 +1,4 @@
-package choppr.chopstore.security;
+package choppr.chopstore.seguridad;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.2
+ * @version 1.3
  */
 
 @ Service
@@ -108,8 +108,24 @@ public class ProductoServicioImpl implements ProductoServicio {
     public ProductoDatos consultaPorId (String idproducto) {
         Producto coincidencia = productoRepositorio.findProductoByIdproducto (Integer.parseInt (idproducto));
         if (coincidencia == null) throw new ElementNotFoundException ();
-        ProductoDatos producto = new ProductoDatos (coincidencia);
-        return producto;
+        return new ProductoDatos (coincidencia);
+    }
+
+    /**
+     * Recupera un producto especificado y verifica que el usuario sea dueño del mismo
+     * @param idproducto es el identificador del producto
+     * @param idusuario es el identificador del usuario que debe ser dueño del producto
+     * @return el producto con el identificador especificado
+     * @throws ElementNotFoundException si no exíste el producto
+     * @throws ForbiddenException si el usuario no es dueño del producto
+     */
+
+    @ Override
+    public ProductoDatos consultaPorIdVerificaUsuario (String idproducto, String idusuario) {
+        Producto coincidencia = productoRepositorio.findProductoByIdproducto (Integer.parseInt (idproducto));
+        if (coincidencia == null) throw new ElementNotFoundException ();
+        if (coincidencia.getIdusuario () != Integer.parseInt (idusuario)) throw new ForbiddenException ();
+        return new ProductoDatos (coincidencia);
     }
 
     /**
@@ -199,6 +215,43 @@ public class ProductoServicioImpl implements ProductoServicio {
         producto.setCantidad (cantInt);
         producto.setDetalles (detalles);
         producto.setUsuario (usuario);
+        producto.setCategoria (categoria);
+        productoRepositorio.save (producto);
+    }
+
+    /**
+     * Edita la información de un producto existente de un usuario
+     * @param idproducto es el identificador del producto
+     * @param idusuario es el identificador del usuario
+     * @param nombreCategoria es el nombre de la categoría del producto
+     * @param nombre es el nombre del producto
+     * @param descripcion es la descripción del producto
+     * @param precio es el precio del producto
+     * @param imagen es la imagen del producto
+     * @param cantidad es la cantidad del producto
+     * @param detalles son los detalles del producto
+     * @throws ElementNotFoundException si no existe el producto o la categoría
+     * @throws ForbiddenException si el usuario nbo es dueño del producto, si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
+     */
+    
+    @ Override
+    public void editaProducto (String idproducto, String idusuario, String nombreCategoria, String nombre, String descripcion, String precio, String imagen, String cantidad, String detalles) {
+        if (nombre.length () > MAX_STRING_SIZE || imagen.length () > MAX_STRING_SIZE || descripcion.length () > MAX_STRING_SIZE || detalles.length () > MAX_STRING_SIZE) throw new ForbiddenException ();
+        Double precDbl = (double) Math.round (100 * Double.parseDouble (precio)) / 100;
+        Integer cantInt = Integer.parseInt (cantidad);
+        if (precDbl < 0 || cantInt < 0) throw new ForbiddenException ();
+        Producto producto = productoRepositorio.findProductoByIdproducto (Integer.parseInt (idproducto));
+        if (producto == null) throw new ElementNotFoundException ();
+        if (producto.getIdusuario () != Integer.parseInt (idusuario)) throw new ForbiddenException ();
+        Categoria categoria = categoriaRepositorio.findCategoriaByNombre (nombreCategoria);
+        if (categoria == null) throw new ElementNotFoundException ();
+        producto.setIdcategoria (categoria.getIdcategoria ());
+        producto.setNombre (nombre);
+        producto.setDescripcion (descripcion);
+        producto.setPrecio (precDbl);
+        producto.setImagen (imagen);
+        producto.setCantidad (cantInt);
+        producto.setDetalles (detalles);
         producto.setCategoria (categoria);
         productoRepositorio.save (producto);
     }

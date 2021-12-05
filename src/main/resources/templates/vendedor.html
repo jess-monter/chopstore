@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="row">
-                                        <button type="button" class="btn btn-claro-negro btn-opcion-prod">Actualizar</i></button>
+                                        <button type="button" class="btn btn-claro-negro btn-opcion-prod" th:onclick="'actualizarProducto (' + ${producto.idproducto} + ')'">Actualizar</i></button>
                                     </div>
                                     <div class="row mt-3">
                                         <button type="button" class="btn btn-oscuro btn-opcion-prod" data-bs-toggle="modal" th:data-bs-target="'#modal'+ ${producto.idproducto}">Eliminar</i></button>

@@ -28,6 +28,10 @@ function actualizaNombre () {
     }
 }
 
+function actualizarProducto (id) {
+    solicitud ("post", "/actualizar", {idproducto : id})
+}
+
 function eliminarProducto (id) {
     solicitud ("post", "/elimina", {idproducto : id})
 }

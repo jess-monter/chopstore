@@ -19,7 +19,7 @@ import java.security.Principal;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.3
+ * @version 1.4
  */
 
 @ Controller
@@ -126,7 +126,7 @@ public class ChopstoreControlador {
     }
 
     /**
-     * Atiende una petición de publicar producto
+     * Atiende una petición de publicar un producto
      * @return la página de inicio de vendedor
      */
 
@@ -147,7 +147,48 @@ public class ChopstoreControlador {
     }
 
     /**
-     * Atiende una petición de eliminar producto
+     * Atiende una petición de la página de actualizar productos
+     * @param petición es el contenedor con los parámetros de la petición
+     * @param principal es el usuario autentificado
+     * @param modelo es el contenedor con la información que se envía a la página
+     * @return la página de actualizar productos
+     */
+
+    @ PostMapping ("/actualizar")
+    public String actualizar (HttpServletRequest peticion, Principal principal, Model modelo) {
+        //Requiere que estén implementado el sistema de inicio/cierre de sesión
+        //String idusuario = principal.getName ();
+        String idusuario = "2";
+        String idproducto = peticion.getParameter ("idproducto");
+        ProductoDatos producto = productoServicio.consultaPorIdVerificaUsuario (idproducto, idusuario);
+        modelo.addAttribute ("producto", producto);
+        return "actualizar";
+    }
+
+    /**
+     * Atiende una petición de editar un producto
+     * @return la página de inicio de vendedor
+     */
+
+    @ PostMapping ("/edita")
+    public String pedita (HttpServletRequest peticion, Principal principal) {
+        //Requiere que estén implementado el sistema de inicio/cierre de sesión
+        //String idusuario = principal.getName ();
+        String idusuario = "2";
+        String idproducto = peticion.getParameter ("idproducto");
+        String categoria = peticion.getParameter ("categoria");
+        String nombre = peticion.getParameter ("nombre");
+        String descripcion = peticion.getParameter ("descripcion");
+        String precio = peticion.getParameter ("precio");
+        String imagen = peticion.getParameter ("imagen");
+        String cantidad = peticion.getParameter ("cantidad");
+        String detalles = peticion.getParameter ("detalles");
+        productoServicio.editaProducto (idproducto, idusuario, categoria, nombre, descripcion, precio, imagen, cantidad, detalles);
+        return "redirect:/vendedor";
+    }
+
+    /**
+     * Atiende una petición de eliminar un producto
      * @param petición es el contenedor con los parámetros de la petición
      * @param principal es el usuario autentificado
      * @return la página de inicio de vendedor

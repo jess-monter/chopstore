@@ -1,6 +1,7 @@
 package choppr.chopstore.controlador;
 
 import choppr.chopstore.datos.ProductoDatos;
+import choppr.chopstore.modelo.Usuario;
 import choppr.chopstore.servicio.ProductoServicio;
 import choppr.chopstore.datos.ResenaDatos;
 import choppr.chopstore.servicio.ResenaServicio;
@@ -37,9 +38,6 @@ public class ChopstoreControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
-
-    @Autowired
-    private RegistroServicio registroService;
 
     /**
      * Atiende una petición de la página de inicio cuando no se ha iniciado sesión
@@ -91,7 +89,7 @@ public class ChopstoreControlador {
 
     /**
      * Atiende una petición de búsuqeda
-     * @param petición es el contenedor con los parámetros de la petición
+     * @param peticion es el contenedor con los parámetros de la petición
      * @param modelo es el contenedor con la información que se envía a la página
      * @return la página de búsqueda
      */
@@ -109,7 +107,7 @@ public class ChopstoreControlador {
 
     /**
      * Atiende una petición de consultar producto
-     * @param petición es el contenedor con los parámetros de la petición
+     * @param peticion es el contenedor con los parámetros de la petición
      * @param principal es el usuario autentificado
      * @param modelo es el contenedor con la información que se envía a la página
      * @return la página de producto
@@ -118,9 +116,7 @@ public class ChopstoreControlador {
     @ GetMapping ("/producto")
     public String producto (HttpServletRequest peticion, Principal principal, Model modelo) {
         //Requiere que estén implementado el sistema de inicio/cierre de sesión
-        UserDetails usrdet = (UserDetails) principal;
-        Usuario usr = (Usuario) usuarioServicio.loadUserByUsername(usrdet.getUsername());
-        String idusuario = Integer.toString(usr.getIdusuario());
+        String idusuario = "1";
         String idproducto = peticion.getParameter ("idproducto");
         ProductoDatos producto = productoServicio.consultaPorId (idproducto);
         String [] porcentaje = new String [1];
@@ -166,7 +162,7 @@ public class ChopstoreControlador {
 
     /**
      * Atiende una petición de la página de actualizar productos
-     * @param petición es el contenedor con los parámetros de la petición
+     * @param peticion es el contenedor con los parámetros de la petición
      * @param principal es el usuario autentificado
      * @param modelo es el contenedor con la información que se envía a la página
      * @return la página de actualizar productos
@@ -207,7 +203,7 @@ public class ChopstoreControlador {
 
     /**
      * Atiende una petición de eliminar un producto
-     * @param petición es el contenedor con los parámetros de la petición
+     * @param peticion es el contenedor con los parámetros de la petición
      * @param principal es el usuario autentificado
      * @return la página de inicio de vendedor
      */
@@ -224,7 +220,7 @@ public class ChopstoreControlador {
 
     /**
      * Atiende una petición de publicar reseña
-     * @param petición es el contenedor con los parámetros de la petición
+     * @param peticion es el contenedor con los parámetros de la petición
      * @param principal es el usuario autentificado
      * @param modelo es el contenedor con la información que se envía a la página
      * @return la página de producto
@@ -233,10 +229,7 @@ public class ChopstoreControlador {
     @ PostMapping ("/resena")
     public String resena (HttpServletRequest peticion, Principal principal, Model modelo) {
         //Requiere que estén implementado el sistema de inicio/cierre de sesión
-        UserDetails usrdet = (UserDetails) principal;
-        Usuario usr = (Usuario) usuarioServicio.loadUserByUsername(usrdet.getUsername());
-        String idusuario = Integer.toString(usr.getIdusuario());
-        //String idusuario = "1";
+        String idusuario = (String)peticion.getSession().getAttribute("idUsuario");
         String idproducto = peticion.getParameter ("idproducto");
         String comentario = peticion.getParameter ("comentario");
         String calificacion = peticion.getParameter ("calificacion");

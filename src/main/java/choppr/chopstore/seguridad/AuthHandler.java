@@ -19,7 +19,7 @@ public class AuthHandler implements AuthenticationSuccessHandler{
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String rol = auth.getAuthorities().toString();
         Usuario usr = (Usuario)auth.getPrincipal();
-        httpServletRequest.setAttribute("idUsuario",usr.getIdusuario());
+        httpServletRequest.getSession().setAttribute("idUsuario",Integer.toString(usr.getIdusuario()));
         if (rol.contains("VENDEDOR"))
             httpServletResponse.sendRedirect("/vendedor");
         else if (rol.contains("COMPRADOR"))

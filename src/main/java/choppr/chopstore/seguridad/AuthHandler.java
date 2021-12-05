@@ -1,6 +1,8 @@
-package choppr.chopstore.security;
+package choppr.chopstore.seguridad;
 
+import choppr.chopstore.modelo.Usuario;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
@@ -14,10 +16,13 @@ public class AuthHandler implements AuthenticationSuccessHandler{
                                         HttpServletResponse httpServletResponse, Authentication authentication)
             throws IOException, ServletException {
         //System.out.println(httpServletRequest.getHeader("referer"));
-        if(httpServletRequest.getHeader("referer").equals("http://localhost:8080/register/confirm") || httpServletRequest.getHeader("referer").equals("http://localhost:8080/login?logout"))
-            httpServletResponse.sendRedirect("/");
-        else
-            httpServletResponse.sendRedirect(httpServletRequest.getHeader("referer"));
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String rol = auth.getAuthorities().toString();
+        Usuario usr = (Usuario)auth.getPrincipal();
+        httpServletRequest.setAttribute("idUsuario",usr.getIdusuario());
+        if (rol.contains("VENDEDOR"))
+            httpServletResponse.sendRedirect("/vendedor");
+        else if (rol.contains("COMPRADOR"))
+            httpServletResponse.sendRedirect("/comprador");
     }
 }

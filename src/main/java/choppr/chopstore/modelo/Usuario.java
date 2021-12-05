@@ -18,10 +18,6 @@ import java.util.*;
 
 @ Data
 @ Entity
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
 @NoArgsConstructor
 @ Table (name = "usuario")
 public class Usuario implements UserDetails {
@@ -41,9 +37,6 @@ public class Usuario implements UserDetails {
 
     @ Column (name = "contrasena")
     private String contrasena;
-
-    @ Column (name = "rol")
-    private String rol;
 
     @ Column (name = "telefono")
     private String telefono;

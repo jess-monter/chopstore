@@ -1,7 +1,7 @@
-package choppr.chopstore.security.config;
+package choppr.chopstore.seguridad.config;
 
-import is.pims.MercadoManazo.security.AuthHandler;
-import is.pims.MercadoManazo.service.UsuarioService;
+import choppr.chopstore.seguridad.AuthHandler;
+import choppr.chopstore.servicio.impl.UsuarioServicio;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UsuarioService usuarioService;
+    private final UsuarioServicio usuarioService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -27,8 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/dashboard/**").hasRole("VENDEDOR")
-                    .antMatchers("/checkout/**", "/review/**").hasRole("COMPRADOR")
+                    .antMatchers("/vendedor/**").hasRole("VENDEDOR")
+                    .antMatchers("/comprador/**").hasRole("COMPRADOR")
                     .antMatchers("/register/**", "/")
                     .permitAll()
                 .anyRequest()

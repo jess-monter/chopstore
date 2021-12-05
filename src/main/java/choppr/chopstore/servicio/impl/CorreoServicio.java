@@ -30,7 +30,7 @@ public class CorreoServicio implements EnviadorCorreo {
             helper.setText(correo,true);
             helper.setTo(destinatario);
             helper.setSubject(asunto);
-            helper.setFrom(" "); //TODO: Definir una cuenta de correo.
+            helper.setFrom("chopstore.tester@gmail.com");
             mailSender.send(mimeMessage);
         }catch (MessagingException e){
             LOGGER.error("Falla en enviar correo.",e);

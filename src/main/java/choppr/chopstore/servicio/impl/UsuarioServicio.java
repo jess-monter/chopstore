@@ -3,6 +3,8 @@ package choppr.chopstore.servicio.impl;
 import choppr.chopstore.modelo.Usuario;
 import choppr.chopstore.repositorio.UsuarioRepositorio;
 import lombok.AllArgsConstructor;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,4 +37,16 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepository.save(usuario);
         return "redirect:/register/confirm";
     }
+
+    /**
+     * Obtiene una representación en cadena del identificador del usuario que realiza una petición
+     * @param autentificacion es el token de autentificación del usuario
+     * @return el identificador del usuario
+     */
+
+    public String obtenIdusuario (Authentication autentificacion) {
+        Usuario usuario = (Usuario) autentificacion.getPrincipal ();
+        return usuario.getIdusuario ().toString ();
+    }
+
 }

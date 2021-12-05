@@ -6,14 +6,15 @@
             <title>Inicia Sesión - Chopstore</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Mercado Manazo</title><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css'>
+        <title>Chopstore</title><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css'>
         <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css'><link rel="stylesheet" th:href="@{/css/main.css}">
+        <link th:href="@{/css/choppr-styles.css}" rel="stylesheet">
         <link rel="icon" th:href="@{/img/Logo-Cir-Light.png}">
     </head>
     <body class="d-flex flex-column">
     <header>
         <div sec:authorize="hasRole('ROLE_COMPRADOR')" th:replace="cabecera :: cabecera-comprador"></div>
-        <div sec:authorize="hasRole('ROLE_VENDEDOR')" th:replace="cabecera :: caberca-vendedor"></div>
+        <div sec:authorize="hasRole('ROLE_VENDEDOR')" th:replace="cabecera :: cabecera-vendedor"></div>
         <div sec:authorize="isAnonymous()" th:replace="cabecera :: cabecera-inicio"></div>
     </header>
 
@@ -37,8 +38,8 @@
                             <input type="password" class="form-control" id="password" name="password" placeholder="contraseña" required>
                         </div>
                         <div class="mt-3 mx-3 d-flex justify-content-evenly">
-                            <a class="btn btn-success" th:href="@{/register}">Regístrate</a>
-                            <button type="submit" class="btn btn-primary">Inicia Sesión</button>
+                            <a class="btn btn-med-blanco" th:href="@{/register}">Regístrate</a>
+                            <button type="submit" class="btn btn-claro-negro">Inicia Sesión</button>
                         </div>
                     </form>
                     <h1 sec:authorize="isAuthenticated()">Usted ya inició sesión.</h1>

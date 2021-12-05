@@ -75,7 +75,7 @@
         <!-- Cabecera Vendedor -->
         <nav class="navbar navbar-light navbar-expand-md justify-content-center" style="background-color: #129fa5" th:fragment="cabecera-vendedor">
             <div class="container-fluid my-3">
-                <a href="/vendedor" class="navbar-brand d-flex w-50 me-auto">
+                <a th:href="@{/vendedor}" class="navbar-brand d-flex w-50 me-auto">
                     <img th:src="@{/img/chopstore-white.png}" style="max-width: 250px" alt="Chopstore">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar">
@@ -91,13 +91,14 @@
                         <li class="nav-item dropdown" style="margin-right: 25%">
                             <a class="nav-link dropdown-toggle" href="#" style="color: white;" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfil</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Mis Productos</a></li>
+                                <li><a class="dropdown-item" th:href="@{/vendedor}">Mis Productos</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="javascript: document.logOutForm.submit()" >Cierra Sesión</a>
-                                    <form  name="logOutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                                    <a class="dropdown-item" href="javascript: document.logOutForm.submit()">Cierra Sesión</a>
+                                    <form name="logOutForm" th:action="@{/logout}" method="post" th:hidden="true">
                                         <input hidden type="submit" value="Sign Out"/>
-                                    </form></li>
+                                    </form>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -107,7 +108,7 @@
         <!-- Cabecera Inicio -->
         <nav class="navbar navbar-light navbar-expand-md justify-content-center" style="background-color: #129fa5" th:fragment="cabecera-inicio">
             <div class="container-fluid my-3">
-                <a href="/" class="navbar-brand d-flex w-50 me-auto">
+                <a th:href="@{/}" class="navbar-brand d-flex w-50 me-auto">
                     <img th:src="@{/img/chopstore-white.png}" style="max-width: 250px" alt="Chopstore">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar">

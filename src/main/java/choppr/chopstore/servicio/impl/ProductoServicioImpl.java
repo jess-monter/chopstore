@@ -1,13 +1,18 @@
 package choppr.chopstore.servicio.impl;
 
+import choppr.chopstore.modelo.Categoria;
 import choppr.chopstore.modelo.Producto;
+import choppr.chopstore.modelo.Usuario;
 import choppr.chopstore.repositorio.ProductoRepositorio;
-import choppr.chopstore.servicio.ProductoServicio;
-import choppr.chopstore.datos.ProductoDatos;
+import choppr.chopstore.repositorio.UsuarioRepositorio;
 import choppr.chopstore.repositorio.InvolucrarRepositorio;
+import choppr.chopstore.repositorio.CategoriaRepositorio;
+import choppr.chopstore.datos.ProductoDatos;
+import choppr.chopstore.servicio.ProductoServicio;
 import choppr.chopstore.excepciones.ElementNotFoundException;
 import choppr.chopstore.excepciones.ForbiddenException;
 
+import java.lang.Math;
 import java.util.Random;
 import java.util.Iterator;
 import java.util.List;
@@ -20,14 +25,22 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.0
+ * @version 1.2
  */
 
 @ Service
 public class ProductoServicioImpl implements ProductoServicio {
+
+    static final int MAX_STRING_SIZE = 256;
     
     @ Autowired
     private ProductoRepositorio productoRepositorio;
+
+    @ Autowired
+    private UsuarioRepositorio usuarioRepositorio;
+
+    @ Autowired
+    private CategoriaRepositorio categoriaRepositorio;
 
     @ Autowired
     private InvolucrarRepositorio involucrarRepositorio;
@@ -121,7 +134,7 @@ public class ProductoServicioImpl implements ProductoServicio {
         } else {
             Iterator <Producto> iterador = todosProductos.iterator ();
             int inicioAleatorio = rng.nextInt (todosProductos.size () - 4);
-            while (indice < inicioAleatorio) {
+            while (indice <= inicioAleatorio) {
                 iterador.next ();
                 indice ++;
             }
@@ -151,6 +164,43 @@ public class ProductoServicioImpl implements ProductoServicio {
             indice ++;
         }
         return masVendidos;
+    }
+
+    /**
+     * Crea un nuevo producto para un usuario
+     * @param idusuario es el identificador del usuario
+     * @param nombreCategoria es el nombre de la categoría del producto
+     * @param nombre es el nombre del producto
+     * @param descripcion es la descripción del producto
+     * @param precio es el precio del producto
+     * @param imagen es la imagen del producto
+     * @param cantidad es la cantidad del producto
+     * @param detalles son los detalles del producto
+     * @throws ElementNotFoundException si no existe la categoría
+     * @throws ForbiddenException si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
+     */
+    
+     @ Override
+    public void publicaProducto (String idusuario, String nombreCategoria, String nombre, String descripcion, String precio, String imagen, String cantidad, String detalles) {
+        if (nombre.length () > MAX_STRING_SIZE || imagen.length () > MAX_STRING_SIZE || descripcion.length () > MAX_STRING_SIZE || detalles.length () > MAX_STRING_SIZE) throw new ForbiddenException ();
+        Double precDbl = (double) Math.round (100 * Double.parseDouble (precio)) / 100;
+        Integer cantInt = Integer.parseInt (cantidad);
+        if (precDbl < 0 || cantInt < 0) throw new ForbiddenException ();
+        Producto producto = new Producto ();
+        Usuario usuario = usuarioRepositorio.findUsuarioByIdusuario (Integer.parseInt (idusuario));
+        Categoria categoria = categoriaRepositorio.findCategoriaByNombre (nombreCategoria);
+        if (categoria == null) throw new ElementNotFoundException ();
+        producto.setIdusuario (usuario.getIdusuario ());
+        producto.setIdcategoria (categoria.getIdcategoria ());
+        producto.setNombre (nombre);
+        producto.setDescripcion (descripcion);
+        producto.setPrecio (precDbl);
+        producto.setImagen (imagen);
+        producto.setCantidad (cantInt);
+        producto.setDetalles (detalles);
+        producto.setUsuario (usuario);
+        producto.setCategoria (categoria);
+        productoRepositorio.save (producto);
     }
 
     /**

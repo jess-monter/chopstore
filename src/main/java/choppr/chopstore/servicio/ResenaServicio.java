@@ -37,7 +37,7 @@ public interface ResenaServicio {
      * @param idproducto es el identificador del producto
      * @param comentario es el contenido de la reseña
      * @param calificacion es la calificación de la reseña
-     * @throws ForbiddenException si el usuario no ha comprado el producto, el usuario ya ha reseñado el producto, el comentario es null, el comentario es de longitud mayor a 256 o si la calificación no está entre 1 y 5
+     * @throws ForbiddenException si el usuario no ha comprado el producto, el usuario ya ha reseñado el producto, el comentario es de longitud mayor al máximo permitido o si la calificación no está entre 1 y 5
      */
 
     public void publicaResena (String idusuario, String idproducto, String comentario, String calificacion);

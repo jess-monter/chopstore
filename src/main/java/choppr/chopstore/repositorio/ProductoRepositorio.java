@@ -85,13 +85,4 @@ public interface ProductoRepositorio extends JpaRepository <Producto, Integer> {
     @ Query (value = "SELECT * FROM producto JOIN categoria WHERE producto.idcategoria = categoria.idcategoria AND categoria.nombre = :c", nativeQuery = true)
     public List <Producto> buscaTodasCategorias (@ Param ("c") String categoria);
 
-    /**
-     * Modifica datos del producto especificado
-     * @param idproducto es el identificador del producto
-     * @param producto es el producto a modificar
-     * @return el producto modificado  si no exíste el producto
-     */
-
-    public Producto editProduct (Integer idproducto, Producto producto);
-
 }

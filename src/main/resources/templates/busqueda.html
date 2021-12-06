@@ -11,7 +11,7 @@
     </head>
     <body>
         <div th:replace="cabecera :: cabecera-comprador"></div>
-        <div th:unless="${productos == null}" class="container">
+        <div th:unless="${productos == null}" class="container mb-3">
             <div class="row mt-3 mb-1">
                 <p class="fw-bold fs-4 txt-resalte" th:text="${busqueda == ''} ? 'Todos los resultados en: ' + ${categoria} : 'Resultados de ' + ${busqueda} + ' en: ' + ${categoria}"><hr class="txt-resalte"></p>
             </div>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div th:if="${productos == null}" class="container">
+        <div th:if="${productos == null}" class="container mb-3">
             <div class="row mt-3 mb-1">
                 <p class="fw-bold fs-4 txt-resalte" th:text="${busqueda == ''} ? 'No hay resultados en: ' + ${categoria} : 'No hay resultados de ' + ${busqueda} + ' en: ' + ${categoria}"></p>
             </div>

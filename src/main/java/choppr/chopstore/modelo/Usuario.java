@@ -13,7 +13,7 @@ import java.util.*;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.0
+ * @version 1.3
  */
 
 @ Data
@@ -45,12 +45,12 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private RolUsuario rolUsuario;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Producto> productos;
-    @OneToMany(mappedBy = "usuario" ,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Compra> compras;
-    @OneToMany(mappedBy = "usuario" ,cascade = CascadeType.ALL)
-    private Set<Resena> resenas;
+    // @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // private Set<Producto> productos;
+    // @OneToMany(mappedBy = "usuario" ,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // private Set<Compra> compras;
+    // @OneToMany(mappedBy = "usuario" ,cascade = CascadeType.ALL)
+    // private Set<Resena> resenas;
     private Boolean locked = false;
     private Boolean enabled = false;
 
@@ -61,14 +61,14 @@ public class Usuario implements UserDetails {
         this.contrasena = generaContrasena(8);
         this.telefono = telefono;
         this.rolUsuario = rolUsuario;
-        if (rolUsuario.equals(RolUsuario.COMPRADOR)) {
-            this.compras = new HashSet<>();
-            this.productos = null;
-            this.resenas = new HashSet<>();
-        } else {
-            this.compras = null;
-            this.productos = new HashSet<>();
-        }
+        // if (rolUsuario.equals(RolUsuario.COMPRADOR)) {
+        //    this.compras = new HashSet<>();
+        //    this.productos = null;
+        //    this.resenas = new HashSet<>();
+        // } else {
+        //    this.compras = null;
+        //    this.productos = new HashSet<>();
+        // }
     }
 
     @Override

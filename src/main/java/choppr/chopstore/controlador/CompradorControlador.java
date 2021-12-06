@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.0
+ * @version 1.1
  */
 
 @ Controller
@@ -43,6 +44,7 @@ public class CompradorControlador {
      */
 
     @ RequestMapping ("/comprador")
+    @ Secured ("ROLE_COMPRADOR")
     public String comprador (Authentication autentificacion, Model modelo) {
         String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
         modelo.addAttribute ("recomendaciones", productoServicio.recomiendaProductos (idusuario));
@@ -58,6 +60,7 @@ public class CompradorControlador {
      */
 
     @ PostMapping ("/busqueda")
+    @ Secured ("ROLE_COMPRADOR")
     public String busqueda (HttpServletRequest peticion, Model modelo) {
         String busqueda = peticion.getParameter ("busqueda");
         String categoria = peticion.getParameter ("categoria");
@@ -77,6 +80,7 @@ public class CompradorControlador {
      */
 
     @ GetMapping ("/producto")
+    @ Secured ("ROLE_COMPRADOR")
     public String producto (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
         String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
         String idproducto = peticion.getParameter ("idproducto");
@@ -100,6 +104,7 @@ public class CompradorControlador {
      */
 
     @ PostMapping ("/resena")
+    @ Secured ("ROLE_COMPRADOR")
     public String resena (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
         String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
         String idproducto = peticion.getParameter ("idproducto");

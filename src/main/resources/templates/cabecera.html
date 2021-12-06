@@ -4,6 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta charset="UTF-8">
+        <link th:href="@{/css/choppr-styles.css}" rel="stylesheet">
     </head>
     <body>
         <!-- Cabecera Comprador -->
@@ -120,10 +121,10 @@
                     </ul>
                     <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
                         <li class="nav-item">
-                            <a class="nav-link">¿No tienes una cuenta?</a>
+                            <a class="nav-link txt-blanco">¿No tienes una cuenta?</a>
                           </li>
                         <li class="nav-item" style="margin-right: 15%">
-                            <a class="nav-link" th:href="@{/register}">Regístrate</a>
+                            <a class="nav-link txt-blanco" th:href="@{/register}">Regístrate</a>
                         </li>
                     </ul>
                 </div>

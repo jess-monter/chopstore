@@ -25,11 +25,11 @@ public class ChopstoreControlador {
         if(auth != null) {
             String role = auth.getAuthorities().toString();
             if (role.contains("VENDEDOR"))
-                return "/vendedor";
+                return "redirect:/vendedor";
             else if (role.contains("COMPRADOR"))
-                return "/comprador";
+                return "redirect:/comprador";
         }
-        return "login";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -39,7 +39,7 @@ public class ChopstoreControlador {
 
     @GetMapping("/register/confirm")
     public String muestraLog(){
-        return "login";
+        return "redirect:/login";
     }
 
 }

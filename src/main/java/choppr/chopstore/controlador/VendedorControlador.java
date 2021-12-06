@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.0
+ * @version 1.1
  */
 
 @ Controller
@@ -38,6 +39,7 @@ public class VendedorControlador {
      */
 
     @ RequestMapping ("/vendedor")
+    @ Secured ("ROLE_VENDEDOR")
     public String vendedor (Authentication autentificacion, Model modelo) {
         String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
         modelo.addAttribute ("productos", productoServicio.obtenProductosDeUsuario (idusuario));
@@ -50,6 +52,7 @@ public class VendedorControlador {
      */
 
     @ GetMapping ("/crear")
+    @ Secured ("ROLE_VENDEDOR")
     public String crear () {
         return "crear";
     }
@@ -62,6 +65,7 @@ public class VendedorControlador {
      */
 
     @ PostMapping ("/publica")
+    @ Secured ("ROLE_VENDEDOR")
     public String publica (HttpServletRequest peticion, Authentication autentificacion) {
         String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
         String categoria = peticion.getParameter ("categoria");
@@ -84,6 +88,7 @@ public class VendedorControlador {
      */
 
     @ PostMapping ("/actualizar")
+    @ Secured ("ROLE_VENDEDOR")
     public String actualizar (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
         String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
         String idproducto = peticion.getParameter ("idproducto");
@@ -100,6 +105,7 @@ public class VendedorControlador {
      */
 
     @ PostMapping ("/edita")
+    @ Secured ("ROLE_VENDEDOR")
     public String pedita (HttpServletRequest peticion, Authentication autentificacion) {
         String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
         String idproducto = peticion.getParameter ("idproducto");
@@ -122,6 +128,7 @@ public class VendedorControlador {
      */
 
     @ PostMapping ("/elimina")
+    @ Secured ("ROLE_VENDEDOR")
     public String elimina (HttpServletRequest peticion, Authentication autentificacion) {
         String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
         String idproducto = peticion.getParameter ("idproducto");

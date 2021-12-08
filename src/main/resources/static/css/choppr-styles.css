@@ -60,11 +60,15 @@
 }
 
 .txt-resalte {
-    color: #129fa5
+    color: #129fa5 !important
+}
+
+.txt-blanco {
+    color: white !important
 }
 
 .txt-negro {
-    color: black
+    color: black !important
 }
 
 .calificacion {

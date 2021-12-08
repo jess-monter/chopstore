@@ -94,7 +94,7 @@ public interface ProductoServicio {
      * @param cantidad es la cantidad del producto
      * @param detalles son los detalles del producto
      * @throws ElementNotFoundException si no existe el producto o la categoría
-     * @throws ForbiddenException si el usuario nbo es dueño del producto, si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
+     * @throws ForbiddenException si el usuario no es dueño del producto, si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
      */
     
     public void editaProducto (String idproducto, String idusuario, String nombreCategoria, String nombre, String descripcion, String precio, String imagen, String cantidad, String detalles);

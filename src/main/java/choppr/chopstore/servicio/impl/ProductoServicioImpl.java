@@ -31,7 +31,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 @ Service
 public class ProductoServicioImpl implements ProductoServicio {
 
-    static final int MAX_STRING_SIZE = 256;
+    static final int NOMBRE_MAX = 256;      // Límite máximo de caracteres permitidos para el nombre de un producto
+    static final int IMAGEN_MAX = 256;      // Límite máximo de caracteres permitidos para la imagen de un producto
+    static final int DESCRIPCION_MAX = 256; // Límite máximo de caracteres permitidos para la descripción de un producto
+    static final int DETALLES_MAX = 256;    // Límite máximo de caracteres permitidos para los detalles de un producto
     
     @ Autowired
     private ProductoRepositorio productoRepositorio;
@@ -198,7 +201,7 @@ public class ProductoServicioImpl implements ProductoServicio {
     
      @ Override
     public void publicaProducto (String idusuario, String nombreCategoria, String nombre, String descripcion, String precio, String imagen, String cantidad, String detalles) {
-        if (nombre.length () > MAX_STRING_SIZE || imagen.length () > MAX_STRING_SIZE || descripcion.length () > MAX_STRING_SIZE || detalles.length () > MAX_STRING_SIZE) throw new ForbiddenException ();
+        if (nombre.length () > NOMBRE_MAX || imagen.length () > IMAGEN_MAX || descripcion.length () > DESCRIPCION_MAX || detalles.length () > DETALLES_MAX) throw new ForbiddenException ();
         Double precDbl = (double) Math.round (100 * Double.parseDouble (precio)) / 100;
         Integer cantInt = Integer.parseInt (cantidad);
         if (precDbl < 0 || cantInt < 0) throw new ForbiddenException ();
@@ -231,12 +234,12 @@ public class ProductoServicioImpl implements ProductoServicio {
      * @param cantidad es la cantidad del producto
      * @param detalles son los detalles del producto
      * @throws ElementNotFoundException si no existe el producto o la categoría
-     * @throws ForbiddenException si el usuario nbo es dueño del producto, si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
+     * @throws ForbiddenException si el usuario no es dueño del producto, si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
      */
     
     @ Override
     public void editaProducto (String idproducto, String idusuario, String nombreCategoria, String nombre, String descripcion, String precio, String imagen, String cantidad, String detalles) {
-        if (nombre.length () > MAX_STRING_SIZE || imagen.length () > MAX_STRING_SIZE || descripcion.length () > MAX_STRING_SIZE || detalles.length () > MAX_STRING_SIZE) throw new ForbiddenException ();
+        if (nombre.length () > NOMBRE_MAX || imagen.length () > IMAGEN_MAX || descripcion.length () > DESCRIPCION_MAX || detalles.length () > DETALLES_MAX) throw new ForbiddenException ();
         Double precDbl = (double) Math.round (100 * Double.parseDouble (precio)) / 100;
         Integer cantInt = Integer.parseInt (cantidad);
         if (precDbl < 0 || cantInt < 0) throw new ForbiddenException ();

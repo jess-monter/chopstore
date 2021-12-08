@@ -5,6 +5,8 @@ import choppr.chopstore.modelo.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Interfaz para conectar con la base de datos y realizar consultas relacionadas a la tabla usuario
  * @author Eric Toporek Coca
@@ -23,5 +25,12 @@ public interface UsuarioRepositorio extends JpaRepository <Usuario, Integer> {
      */
 
     public Usuario findUsuarioByIdusuario (Integer idusuario);
+
+    /**
+     * Metodo que consulta a un usuario para contrarlo por correo
+     * @param correo El correo electronico
+     * @return El usuario recuperado.
+     */
+    Optional<Usuario> findByCorreo(String correo);
 
 }

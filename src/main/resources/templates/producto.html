@@ -17,8 +17,10 @@
                 <h1 th:text="${producto.nombre}"></h1>
             </div>
             <div class="row mt-3">
-                <div class="col align-self-center">
-                    <img class="cuadro-g-img mx-auto" th:src="${producto.imagen}" alt="Imagen del producto">
+                <div class="col">
+                    <div class="row mx-auto">
+                        <img class="cuadro-g-img mx-auto" th:src="${producto.imagen}" alt="Imagen del producto">
+                    </div>
                 </div>
                 <div class="col">
                     <div class="row align-items-center">

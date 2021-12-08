@@ -16,8 +16,10 @@
                 <h1 id="titulo" class="txt-resalte" th:text="${producto.nombre}"></h1>
             </div>
             <div class="row mt-3">
-                <div class="col align-self-center">
-                    <img id="muestra-previa" class="cuadro-g-img mx-auto" th:src="${producto.imagen}" alt="Imagen del producto">
+                <div class="col">
+                    <div class="row mx-auto">
+                        <img id="muestra-previa" class="cuadro-g-img mx-auto" th:src="${producto.imagen}" alt="Imagen del producto">
+                    </div>
                 </div>
                 <div class="col">
                     <form method="post" action="/edita">

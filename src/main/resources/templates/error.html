@@ -17,13 +17,29 @@
             <div sec:authorize="hasRole('ROLE_VENDEDOR')" th:replace="cabecera :: cabecera-vendedor"></div>
             <div sec:authorize="isAnonymous()" th:replace="cabecera :: cabecera-inicio"></div>
         </header>
-        <!--  -->
-        <div class="container">
-            <div class="row">
-                <h1>Error</h1>
+        <div class="container mb-3">
+            <div class="row mt-5 align-items-center" style="background-color: #0d7377">
+                <div class="col">
+                    <div class="row mx-auto">
+                        <th:block th:switch="${imagen}">
+                            <div th:case="0" class="row">
+                                <img th:src="@{/img/no-encontrado.gif}" class="img-fluid" alt="Error">
+                            </div>
+                            <div th:case="1" clas="row">
+                                <img th:src="@{/img/no-permitido.gif}" class="img-fluid" alt="Error">
+                            </div>
+                            <div th:case="2" class="row">
+                                <img th:src="@{/img/chopstore-error.gif}" class="img-fluid" alt="Error">
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="col" style="color: white">
+                    <h1 class="display-1">ERROR</h1>
+                    <h1 class="display-3" th:text="${mensaje}"></h1>
+                </div>
             </div>
         </div>
-        <!--  -->
     </body>
     <script type="text/javascript" th:src="@{/js/chopstore-script.js}"></script>
 </html>

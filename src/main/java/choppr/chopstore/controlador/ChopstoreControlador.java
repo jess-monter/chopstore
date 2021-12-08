@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Clase que atiende las peticiones generales al servidor
+ * Clase que atiende peticiones generales al servidor
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
@@ -16,14 +16,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @ Controller
 public class ChopstoreControlador {
 
-    /** Atiende una petición de la página de inicio cuando no se ha iniciado sesión
-     * @return la página de inicio
+    /**
+     * Atiende una petición de la página de inicio
+     * @param autentificacion es el token de autentificación del usuario
+     * @return la página comprador, vendedor o de inicio de sesión, cuando el usuario es un comprador, vendedor o no ha iniciado sesión, respectivamente
      */
 
     @ RequestMapping ("/")
-    public String inicio (Authentication auth) {
-        if(auth != null) {
-            String role = auth.getAuthorities().toString();
+    public String inicio (Authentication autentificacion) {
+        if (autentificacion != null) {
+            String role = autentificacion.getAuthorities().toString();
             if (role.contains("VENDEDOR"))
                 return "redirect:/vendedor";
             else if (role.contains("COMPRADOR"))
@@ -40,6 +42,6 @@ public class ChopstoreControlador {
     @GetMapping("/register/confirm")
     public String muestraLog(){
         return "redirect:/login";
-    }
+    }    
 
 }

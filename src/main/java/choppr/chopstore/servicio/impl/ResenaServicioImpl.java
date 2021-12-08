@@ -27,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @ Service
 public class ResenaServicioImpl implements ResenaServicio {
 
-    static final int MAX_STRING_SIZE = 256;
+    static final int COMENTARIO_MAX = 256; // Límite máximo de caracteres permitidos para el comentario de una reseña
 
     @ Autowired
     private ResenaRepositorio resenaRepositorio;
@@ -96,7 +96,7 @@ public class ResenaServicioImpl implements ResenaServicio {
     @ Override
     public void publicaResena (String idusuario, String idproducto, String comentario, String calificacion) {
         if (estadoResena (idusuario, idproducto) != 1) throw new ForbiddenException ();
-        if (comentario.length () > MAX_STRING_SIZE) throw new ForbiddenException ();
+        if (comentario.length () > COMENTARIO_MAX) throw new ForbiddenException ();
         Integer calfInt = Integer.parseInt (calificacion);
         if (calfInt < 1 || 5 < calfInt) throw new ForbiddenException ();
         Resena resena = new Resena ();

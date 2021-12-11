@@ -30,8 +30,7 @@ public class ErrorControlador {
     @ ExceptionHandler ({ElementNotFoundException.class, NullPointerException.class})
     public ModelAndView noEncontrado (Exception e) {
         ModelAndView modeloVista = new ModelAndView ("error", HttpStatus.NOT_FOUND);
-        modeloVista.addObject ("imagen", 0);
-        modeloVista.addObject ("mensaje", "No se puede encontrar un elemento solicitado");
+        modeloVista.addObject ("status", 404);
         return modeloVista;
     }
 
@@ -44,8 +43,7 @@ public class ErrorControlador {
     @ ExceptionHandler ({ForbiddenException.class, AccessDeniedException.class, HttpRequestMethodNotSupportedException.class})
     public ModelAndView prohibido (Exception e) {
         ModelAndView modeloVista = new ModelAndView ("error", HttpStatus.FORBIDDEN);
-        modeloVista.addObject ("imagen", 1);
-        modeloVista.addObject ("mensaje", "Se ha intentado realizar una acción no permitida");
+        modeloVista.addObject ("status", 403);
         return modeloVista;
     }
 
@@ -57,10 +55,7 @@ public class ErrorControlador {
 
     @ ExceptionHandler (Exception.class)
     public ModelAndView error (Exception e) {
-        ModelAndView modeloVista = new ModelAndView ("error");
-        modeloVista.addObject ("imagen", 2);
-        modeloVista.addObject ("mensaje", "Algo salió mal al procesar tu petición");
-        return modeloVista;
+        return new ModelAndView ("error");
     }
     
 }

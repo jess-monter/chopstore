@@ -22,11 +22,14 @@
                 <div class="col">
                     <div class="row mx-auto">
                         <th:block th:switch="${status}">
-                            <div th:case="404" class="row">
+                            <div th:case="403" class="row">
+                                <img th:src="@{/img/no-permitido.gif}" class="img-fluid" alt="Error">
+                            </div>
+                            <div th:case="404" clas="row">
                                 <img th:src="@{/img/no-encontrado.gif}" class="img-fluid" alt="Error">
                             </div>
-                            <div th:case="403" clas="row">
-                                <img th:src="@{/img/no-permitido.gif}" class="img-fluid" alt="Error">
+                            <div th:case="406" clas="row">
+                                <img th:src="@{/img/no-valido.gif}" class="img-fluid" alt="Error">
                             </div>
                             <div th:case="*" class="row">
                                 <img th:src="@{/img/chopstore-error.gif}" class="img-fluid" alt="Error">
@@ -37,11 +40,14 @@
                 <div class="col" style="color: white">
                     <h1 class="display-1">ERROR</h1>
                     <th:block th:switch="${status}">
-                        <div th:case="404" class="row">
+                        <div th:case="403" class="row">
+                            <h1 class="display-3">Se ha intentado realizar una acción no permitida</h1>
+                        </div>
+                        <div th:case="404" clas="row">
                             <h1 class="display-3">No se puede encontrar un elemento solicitado</h1>
                         </div>
-                        <div th:case="403" clas="row">
-                            <h1 class="display-3">Se ha intentado realizar una acción no permitida</h1>
+                        <div th:case="406" clas="row">
+                            <h1 class="display-3">Se ha intentado utilizar un valor de atributo inválido</h1>
                         </div>
                         <div th:case="*" class="row">
                             <h1 class="display-3">Algo salió mal al procesar tu petición</h1>

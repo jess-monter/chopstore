@@ -2,8 +2,9 @@ package choppr.chopstore.servicio.impl;
 
 import choppr.chopstore.modelo.Usuario;
 import choppr.chopstore.repositorio.UsuarioRepositorio;
-import lombok.AllArgsConstructor;
+import choppr.chopstore.excepciones.EmailAlreadyTakenException;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,8 +28,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     public String registraUsuario(Usuario usuario){
         boolean coincidence = usuarioRepository.findByCorreo(usuario.getCorreo()).isPresent();
-        if(coincidence)
-            throw new IllegalStateException("El correo ya está registrado.");
+        if (coincidence) throw new EmailAlreadyTakenException (usuario.getCorreo ());
 
         String encoded = bCryptPasswordEncoder.encode(usuario.getPassword());
 

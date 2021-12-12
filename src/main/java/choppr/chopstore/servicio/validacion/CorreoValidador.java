@@ -1,4 +1,4 @@
-package choppr.chopstore.servicio.impl;
+package choppr.chopstore.servicio.validacion;
 
 import org.springframework.stereotype.Service;
 

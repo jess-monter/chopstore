@@ -11,6 +11,7 @@ import choppr.chopstore.repositorio.UsuarioRepositorio;
 import choppr.chopstore.servicio.ResenaServicio;
 import choppr.chopstore.datos.ResenaDatos;
 import choppr.chopstore.excepciones.ForbiddenException;
+import choppr.chopstore.excepciones.InvalidValueException;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.1
+ * @version 1.2
  */
 
 @ Service
@@ -90,15 +91,16 @@ public class ResenaServicioImpl implements ResenaServicio {
      * @param idproducto es el identificador del producto
      * @param comentario es el contenido de la reseña
      * @param calificacion es la calificación de la reseña
-     * @throws ForbiddenException si el usuario no ha comprado el producto, el usuario ya ha reseñado el producto, el comentario es de longitud mayor al máximo permitido o si la calificación no está entre 1 y 5
+     * @throws ForbiddenException si el usuario no ha comprado el producto o el usuario ya ha reseñado el producto
+     * @throws InvalidValueException si el comentario es de longitud mayor al máximo permitido o si la calificación no está entre 1 y 5
      */
 
     @ Override
     public void publicaResena (String idusuario, String idproducto, String comentario, String calificacion) {
         if (estadoResena (idusuario, idproducto) != 1) throw new ForbiddenException ();
-        if (comentario.length () > COMENTARIO_MAX) throw new ForbiddenException ();
+        if (comentario.length () > COMENTARIO_MAX) throw new InvalidValueException ();
         Integer calfInt = Integer.parseInt (calificacion);
-        if (calfInt < 1 || 5 < calfInt) throw new ForbiddenException ();
+        if (calfInt < 1 || 5 < calfInt) throw new InvalidValueException ();
         Resena resena = new Resena ();
         Usuario usuario = usuarioRepositorio.findUsuarioByIdusuario (Integer.parseInt (idusuario));
         Producto producto = productoRepositorio.findProductoByIdproducto (Integer.parseInt (idproducto));

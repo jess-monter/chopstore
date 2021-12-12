@@ -2,13 +2,14 @@ package choppr.chopstore.servicio;
 
 import choppr.chopstore.datos.ResenaDatos;
 import choppr.chopstore.excepciones.ForbiddenException;
+import choppr.chopstore.excepciones.InvalidValueException;
 
 /**
  * Interfaz que provee servicios relacionados con las reseñas
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.0
+ * @version 1.1
  */
 
 public interface ResenaServicio {
@@ -37,7 +38,8 @@ public interface ResenaServicio {
      * @param idproducto es el identificador del producto
      * @param comentario es el contenido de la reseña
      * @param calificacion es la calificación de la reseña
-     * @throws ForbiddenException si el usuario no ha comprado el producto, el usuario ya ha reseñado el producto, el comentario es de longitud mayor al máximo permitido o si la calificación no está entre 1 y 5
+     * @throws ForbiddenException si el usuario no ha comprado el producto o el usuario ya ha reseñado el producto
+     * @throws InvalidValueException si el comentario es de longitud mayor al máximo permitido o si la calificación no está entre 1 y 5
      */
 
     public void publicaResena (String idusuario, String idproducto, String comentario, String calificacion);

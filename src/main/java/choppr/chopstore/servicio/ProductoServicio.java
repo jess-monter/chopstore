@@ -3,6 +3,7 @@ package choppr.chopstore.servicio;
 import choppr.chopstore.datos.ProductoDatos;
 import choppr.chopstore.excepciones.ElementNotFoundException;
 import choppr.chopstore.excepciones.ForbiddenException;
+import choppr.chopstore.excepciones.InvalidValueException;
 
 /**
  * Interfaz que provee servicios relacionados con los productos
@@ -77,7 +78,7 @@ public interface ProductoServicio {
      * @param cantidad es la cantidad del producto
      * @param detalles son los detalles del producto
      * @throws ElementNotFoundException si no existe la categoría
-     * @throws ForbiddenException si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
+     * @throws InvalidValueException si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
      */
 
     public void publicaProducto (String idusuario, String nombreCategoria, String nombre, String descripcion, String precio, String imagen, String cantidad, String detalles);
@@ -94,7 +95,8 @@ public interface ProductoServicio {
      * @param cantidad es la cantidad del producto
      * @param detalles son los detalles del producto
      * @throws ElementNotFoundException si no existe el producto o la categoría
-     * @throws ForbiddenException si el usuario no es dueño del producto, si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
+     * @throws ForbiddenException si el usuario no es dueño del producto
+     * @throws InvalidValueException si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
      */
     
     public void editaProducto (String idproducto, String idusuario, String nombreCategoria, String nombre, String descripcion, String precio, String imagen, String cantidad, String detalles);

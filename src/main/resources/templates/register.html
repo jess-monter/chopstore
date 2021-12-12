@@ -25,24 +25,24 @@
                         <h1>¡Únete Ahora!</h1>
                         <h4>Somos la comunidad más grande de compra-venta local en CDMX.</h4>
                     </div>
-                    <div class="col my-auto"> 
-
+                    <div class="col my-auto">
+                        <div th:unless="${regCorreo == null}" class="alert alert-danger" th:text="'El correo ' + ${regCorreo} + ' ya está registrado.'"></div>
                         <form method="post" th:action="@{/register/}" th:object="${req}" sec:authorize="isAnonymous()">
                             <div class="form-group mb-2">
                                 <label for="name">Ingresa tu Nombre: </label>
-                                <input th:field="*{nombre}" required type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Nombre">
+                                <input th:field="*{nombre}" required type="text" class="form-control" id="name" placeholder="Nombre">
                             </div>
                             <div class="form-group mb-2">
                                 <label for="exampleInputLastName">Ingresa tus Apellidos: </label>
-                                <input th:field="*{apellido}" required type="text" class="form-control" id="exampleInputLastName" aria-describedby="emailHelp" placeholder="Apellidos">
+                                <input th:field="*{apellido}" required type="text" class="form-control" id="exampleInputLastName" placeholder="Apellidos">
                             </div>
                             <div class="form-group mb-2">
                                 <label for="exampleInputEmail1">Correo Electrónico:</label>
-                                <input th:field="*{correo}" required type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ejemplo@ejemplo.com">
+                                <input th:field="*{correo}" required type="email" class="form-control" id="exampleInputEmail1" placeholder="ejemplo@ejemplo.com">
                             </div>
                             <div class="form-group mb-2">
                                 <label for="exampleInputPhone">Ingresa tu número de Teléfono: </label>
-                                <input th:field="*{telefono}"type="text" class="form-control" id="exampleInputPhone" aria-describedby="emailHelp" placeholder="10 dígitos">
+                                <input th:field="*{telefono}" required type="text" class="form-control" id="exampleInputPhone" placeholder="10 dígitos" pattern="\d{10}" maxLength="10" title="10 dígitos">
                             </div>
                             <div class="form-check mt-3">
                                 <input th:field="${req.role}"  type="checkbox" class="form-check-input" id="exampleCheck1">

@@ -1,7 +1,7 @@
 package choppr.chopstore.controlador;
 
-import choppr.chopstore.excepciones.ForbiddenException;
-import choppr.chopstore.excepciones.ElementNotFoundException;
+import choppr.chopstore.excepciones.*;
+import choppr.chopstore.datos.SolicitudRegistro;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -15,11 +15,38 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.0
+ * @version 1.2
  */
 
 @ ControllerAdvice
 public class ErrorControlador {
+
+    /**
+     * Responde a una excepcion de tipo EmailAlreadyTakenException
+     * @param e es la excepción que se dispara en el error
+     * @return la página de registro
+     */
+
+    @ ExceptionHandler (EmailAlreadyTakenException.class)
+    public ModelAndView correoYaRegistrado (Exception e) {
+        ModelAndView modeloVista = new ModelAndView ("register");
+        modeloVista.addObject ("req", new SolicitudRegistro ());
+        modeloVista.addObject ("regCorreo", e.getMessage ());
+        return modeloVista;
+    }
+
+    /**
+     * Responde a una excepción de tipo ForbiddenException, AccessDeniedException o HttpRequestMethodNotSupportedException
+     * @param e es la excepción que se dispara en el error
+     * @return la página de error
+     */
+
+    @ ExceptionHandler ({ForbiddenException.class, AccessDeniedException.class, HttpRequestMethodNotSupportedException.class})
+    public ModelAndView noPermitido (Exception e) {
+        ModelAndView modeloVista = new ModelAndView ("error", HttpStatus.FORBIDDEN);
+        modeloVista.addObject ("status", 403);
+        return modeloVista;
+    }
 
     /**
      * Responde a una excepción de tipo ElementNotFoundException o NullPointerException
@@ -35,15 +62,15 @@ public class ErrorControlador {
     }
 
     /**
-     * Responde a una excepción de tipo ForbiddenException, AccessDeniedException o HttpRequestMethodNotSupportedException
+     * Responde a una excepcion de tipo InvalidValueException
      * @param e es la excepción que se dispara en el error
      * @return la página de error
      */
 
-    @ ExceptionHandler ({ForbiddenException.class, AccessDeniedException.class, HttpRequestMethodNotSupportedException.class})
-    public ModelAndView prohibido (Exception e) {
-        ModelAndView modeloVista = new ModelAndView ("error", HttpStatus.FORBIDDEN);
-        modeloVista.addObject ("status", 403);
+    @ ExceptionHandler (InvalidValueException.class)
+    public ModelAndView noValido (Exception e) {
+        ModelAndView modeloVista = new ModelAndView ("error", HttpStatus.NOT_ACCEPTABLE);
+        modeloVista.addObject ("status", 406);
         return modeloVista;
     }
 

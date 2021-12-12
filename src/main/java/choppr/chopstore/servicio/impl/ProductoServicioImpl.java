@@ -11,6 +11,7 @@ import choppr.chopstore.datos.ProductoDatos;
 import choppr.chopstore.servicio.ProductoServicio;
 import choppr.chopstore.excepciones.ElementNotFoundException;
 import choppr.chopstore.excepciones.ForbiddenException;
+import choppr.chopstore.excepciones.InvalidValueException;
 
 import java.lang.Math;
 import java.util.Random;
@@ -196,15 +197,15 @@ public class ProductoServicioImpl implements ProductoServicio {
      * @param cantidad es la cantidad del producto
      * @param detalles son los detalles del producto
      * @throws ElementNotFoundException si no existe la categoría
-     * @throws ForbiddenException si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
+     * @throws InvalidValueException si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
      */
     
      @ Override
     public void publicaProducto (String idusuario, String nombreCategoria, String nombre, String descripcion, String precio, String imagen, String cantidad, String detalles) {
-        if (nombre.length () > NOMBRE_MAX || imagen.length () > IMAGEN_MAX || descripcion.length () > DESCRIPCION_MAX || detalles.length () > DETALLES_MAX) throw new ForbiddenException ();
+        if (nombre.length () > NOMBRE_MAX || imagen.length () > IMAGEN_MAX || descripcion.length () > DESCRIPCION_MAX || detalles.length () > DETALLES_MAX) throw new InvalidValueException ();
         Double precDbl = (double) Math.round (100 * Double.parseDouble (precio)) / 100;
         Integer cantInt = Integer.parseInt (cantidad);
-        if (precDbl < 0 || cantInt < 0) throw new ForbiddenException ();
+        if (precDbl < 0 || cantInt < 0) throw new InvalidValueException ();
         Producto producto = new Producto ();
         Usuario usuario = usuarioRepositorio.findUsuarioByIdusuario (Integer.parseInt (idusuario));
         Categoria categoria = categoriaRepositorio.findCategoriaByNombre (nombreCategoria);
@@ -234,15 +235,16 @@ public class ProductoServicioImpl implements ProductoServicio {
      * @param cantidad es la cantidad del producto
      * @param detalles son los detalles del producto
      * @throws ElementNotFoundException si no existe el producto o la categoría
-     * @throws ForbiddenException si el usuario no es dueño del producto, si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
+     * @throws ForbiddenException si el usuario no es dueño del producto
+     * @throws InvalidValueException si el nombre, imagen, descripción o detalles son de longitud mayor al máximo permitido o si el precio o cantidad son negativos
      */
     
     @ Override
     public void editaProducto (String idproducto, String idusuario, String nombreCategoria, String nombre, String descripcion, String precio, String imagen, String cantidad, String detalles) {
-        if (nombre.length () > NOMBRE_MAX || imagen.length () > IMAGEN_MAX || descripcion.length () > DESCRIPCION_MAX || detalles.length () > DETALLES_MAX) throw new ForbiddenException ();
+        if (nombre.length () > NOMBRE_MAX || imagen.length () > IMAGEN_MAX || descripcion.length () > DESCRIPCION_MAX || detalles.length () > DETALLES_MAX) throw new InvalidValueException ();
         Double precDbl = (double) Math.round (100 * Double.parseDouble (precio)) / 100;
         Integer cantInt = Integer.parseInt (cantidad);
-        if (precDbl < 0 || cantInt < 0) throw new ForbiddenException ();
+        if (precDbl < 0 || cantInt < 0) throw new InvalidValueException ();
         Producto producto = productoRepositorio.findProductoByIdproducto (Integer.parseInt (idproducto));
         if (producto == null) throw new ElementNotFoundException ();
         if (producto.getIdusuario () != Integer.parseInt (idusuario)) throw new ForbiddenException ();

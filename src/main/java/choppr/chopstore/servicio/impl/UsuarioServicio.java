@@ -12,6 +12,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Servicio que gestiona la interacción con los usuarios en cuestiones de registro e inicio de sesión
+ * @author Eric Toporek Coca
+ * @author Fransisco Alejandro Arganis Ramirez
+ * @author Jessica Monter Gallardo
+ * @version 1.0
+ */
 @Service
 @AllArgsConstructor
 public class UsuarioServicio implements UserDetailsService {
@@ -26,6 +33,11 @@ public class UsuarioServicio implements UserDetailsService {
                 .orElseThrow(()-> new UsernameNotFoundException(String.format(USER_NOT_FOUND,correo)));
     }
 
+    /**
+     * Método que registra a un usuario para mandarlo a la base de datos.
+     * @param usuario  Un objeto de tipo usuario
+     * @return El sitio de redirección para el controlador.
+     */
     public String registraUsuario(Usuario usuario){
         boolean coincidence = usuarioRepository.findByCorreo(usuario.getCorreo()).isPresent();
         if (coincidence) throw new EmailAlreadyTakenException (usuario.getCorreo ());

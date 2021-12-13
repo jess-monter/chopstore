@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Clase que se encarga de la autenticación del usuario
+ * @version 1.2
+ * @author Eric Toporek Coca
+ * @author Fransisco Alejandro Arganis Ramirez
+ * @author Jessica Monther Gallardo
+ */
 public class AuthHandler implements AuthenticationSuccessHandler{
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,

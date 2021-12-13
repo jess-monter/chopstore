@@ -34,11 +34,19 @@ public class ChopstoreControlador {
         return "redirect:/login";
     }
 
+    /**
+     * Atiende una solicitud de la ruta al inicio de sesión
+     * @return El template del sitio de inicio de sesión
+     */
     @GetMapping("/login")
     public String viewLoginPage(){
         return "login";
     }
 
+    /**
+     * Atiende una solicitud una vez que se realiza un registro exitoso
+     * @return EL sitio de inicio de sesión
+     */
     @GetMapping("/register/confirm")
     public String muestraLog(){
         return "redirect:/login";

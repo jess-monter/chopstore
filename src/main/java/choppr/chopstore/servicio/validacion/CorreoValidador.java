@@ -6,6 +6,13 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Clase que valida la entrada de un correo electrónico
+ * @author Eric Toporek Coca
+ * @author Fransico Alejandro Arganis Ramirez
+ * @author Jessica Monter Gallardo
+ * @version 1.0
+ */
 @Service
 public class CorreoValidador implements Predicate<String> {
 

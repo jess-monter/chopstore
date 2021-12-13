@@ -10,6 +10,13 @@ import choppr.chopstore.excepciones.InvalidValueException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * Clase que maneja el registro del usuario como servicio
+ * @author Eric Toprorek Coca
+ * @author Fransisco Alejandro Arganis Ramirez
+ * @author Jessica Monter Gallardo
+ * @version 1.2
+ */
 @Service
 @AllArgsConstructor
 public class RegistroServicio {
@@ -19,6 +26,11 @@ public class RegistroServicio {
     private final TelefonoValidador phoneNumberValidator;
     private final CorreoServicio emailService;
 
+    /**
+     * Método que se encarga del registro de un usuario a partir de una solicitud de registro
+     * @param req Una solicitud de registro
+     * @return El sitio a dónde será redirigido el controlador una vez completado el registro.
+     */
     public String registro(SolicitudRegistro req){
         RolUsuario r;
         if (! (emailValidator.test (req.getCorreo ()) && phoneNumberValidator.test (req.getTelefono ()))) throw new InvalidValueException ();

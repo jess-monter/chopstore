@@ -14,6 +14,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+/**
+ * Configurador de seguridad en general.
+ * @author Eric Toporek Coca
+ * @author Fransisco Alejandro Arganis Ramirez
+ * @author Jessica Monter Gallardo
+ * @version 1.0
+ */
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity

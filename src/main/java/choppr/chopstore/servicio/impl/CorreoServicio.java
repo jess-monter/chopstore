@@ -12,6 +12,13 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+
+/**
+ * Servicio que se encargará de manejar la gestión de los correos electrónicos
+ * @author Eric Toporek Coca
+ * @author Fransisco Alejandro Arganis Ramirez
+ * @author Jessica Monter Gallardo
+ */
 @Service
 @AllArgsConstructor
 public class CorreoServicio implements EnviadorCorreo {
@@ -21,6 +28,12 @@ public class CorreoServicio implements EnviadorCorreo {
     private final static Logger LOGGER = LoggerFactory
             .getLogger(CorreoServicio.class);
 
+    /**
+     * Método que envía un correo electrónico
+     * @param destinatario Una dirección de correo electrónico
+     * @param correo El cuerpo del correo electrónico contenido
+     * @param asunto El asunto del correo electrónico a enviar.
+     */
     @Override
     @Async
     public void envia(String destinatario, String correo, String asunto) {

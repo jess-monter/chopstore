@@ -15,8 +15,9 @@ import org.springframework.stereotype.Service;
  * @author Eric Toprorek Coca
  * @author Fransisco Alejandro Arganis Ramirez
  * @author Jessica Monter Gallardo
- * @version 1.2
+ * @version 1.3
  */
+
 @Service
 @AllArgsConstructor
 public class RegistroServicio {
@@ -31,6 +32,7 @@ public class RegistroServicio {
      * @param req Una solicitud de registro
      * @return El sitio a dónde será redirigido el controlador una vez completado el registro.
      */
+
     public String registro(SolicitudRegistro req){
         RolUsuario r;
         if (! (emailValidator.test (req.getCorreo ()) && phoneNumberValidator.test (req.getTelefono ()))) throw new InvalidValueException ();
@@ -39,9 +41,9 @@ public class RegistroServicio {
         else
             r = RolUsuario.COMPRADOR;
         Usuario usr = new Usuario(req.getNombre(), req.getApellido(), req.getCorreo(), req.getTelefono(), r);
-        String pwd = "Tu contraseña en Choppstore es: <b>" + usr.getPassword() + "</b>";
-        String redirect = usuarioService.registraUsuario(usr);
-        emailService.envia(req.getCorreo(), pwd, "Contraseña Choppstore");
+        String pwd = usr.getPassword ();
+        String redirect = usuarioService.registraUsuario (usr);
+        emailService.enviaContrasena (usr.getCorreo (), pwd);
         return redirect;
     }
 }

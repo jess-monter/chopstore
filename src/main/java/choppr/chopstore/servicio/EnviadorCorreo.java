@@ -5,8 +5,9 @@ package choppr.chopstore.servicio;
  * @author Eric Toporek Coca
  * @author Fransisco Alejandro Arganis Ramírez
  * @author Jessica Monter Gallardo
- * @version 1.0
+ * @version 1.1
  */
+
 public interface EnviadorCorreo {
     /**
      * Método que envía un correo electrónico
@@ -15,4 +16,14 @@ public interface EnviadorCorreo {
      * @param asunto EL asunto del correo.
      */
     void envia(String destinatario, String correo, String asunto);
+
+    /**
+     * Envía la contraseña al destinatario especificado
+     * @param destinatario es el correo del usuario que recibe la contraseña
+     * @param contrasena es la contraseña del usuario que recibe tras su registro
+     */
+
+    public void enviaContrasena (String destinatario, String contrasena);
+
+    // public void enviaConfirmacionCompra (String destinatario, String [] productos);
 }

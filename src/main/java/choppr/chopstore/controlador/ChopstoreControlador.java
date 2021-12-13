@@ -4,13 +4,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
 
 /**
  * Clase que atiende peticiones generales al servidor
  * @author Eric Toporek Coca
  * @author Francisco Alejandro Arganis Ramı́rez
  * @author Jessica Monter Gallardo
- * @version 1.6
+ * @version 1.7
  */
 
 @ Controller
@@ -45,11 +46,14 @@ public class ChopstoreControlador {
 
     /**
      * Atiende una solicitud una vez que se realiza un registro exitoso
-     * @return EL sitio de inicio de sesión
+     * @param modelo es el contenedor con la información que se envía a la página
+     * @return el sitio de inicio de sesión con un mensaje de registro exitoso
      */
-    @GetMapping("/register/confirm")
-    public String muestraLog(){
-        return "redirect:/login";
-    }    
+
+    @ GetMapping ("/register/confirm")
+    public String muestraLog (Model modelo) {
+        modelo.addAttribute ("regExito", true);
+        return "login";
+    }
 
 }

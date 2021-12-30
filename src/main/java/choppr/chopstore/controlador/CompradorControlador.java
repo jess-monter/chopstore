@@ -114,4 +114,20 @@ public class CompradorControlador {
         return "redirect:/producto?idproducto=" + idproducto;
     }
 
+    /**
+     * Atiende una petición de publicar reseña
+     * @param peticion es el contenedor con los parámetros de la petición
+     * @param autentificacion es el token de autentificación del usuario
+     * @param modelo es el contenedor con la información que se envía a la página
+     * @return la página de producto
+     */
+
+    @ GetMapping ("/carrito")
+    @ Secured ("ROLE_COMPRADOR")
+    public String carrito (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
+        String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
+        System.out.println(idusuario);
+        return "carrito";
+    }
+
 }

@@ -54,13 +54,20 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
-                        <li class="nav-item dropdown">
+                        <li class="nav-item" style="margin-right: 20%">
+                            <button type="button" class="btn btn-claro-blanco position-relative" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <span class="total-count"></span>
+                                    <span class="visually-hidden">Total items</span>
+                                </span>
+                            </button>
+                        </li>
+                        <li class="nav-item dropdown" style="margin-right: 20%">
                             <a class="nav-link dropdown-toggle" href="#" style="color: white;" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Mi Carrito</a></li>
-                                <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="javascript: document.logOutForm.submit()" >Cierra Sesión</a>
                                     <form  name="logOutForm" th:action="@{/logout}" method="post" th:hidden="true">
                                         <input hidden type="submit" value="Sign Out"/>
@@ -68,10 +75,28 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item" style="margin-right: 20%">
-                            <button type="button" class="btn btn-claro-blanco"><i class="fas fa-shopping-cart"></i></button>
-                        </li>
                     </ul>
+                </div>
+            </div>
+            <!-- Modal Carrito -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" stye="display: block;" aria-modal="true" role="dialog">
+                <div class="modal-dialog modal-xl modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Mi carrito</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <table class="show-cart table"></table>
+                                <div>Total: $<span class="total-cart"></span></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="clear-cart btn btn-lg btn-secondary">Vaciar carrito</button>
+                            <button type="button" class="btn btn-lg btn-block btn-claro-negro">Comprar ahora</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -135,4 +160,5 @@
             </div>
         </nav>
     </body>
+    <script type="text/javascript" th:src="@{/js/chopstore-script.js}"></script>
 </html>

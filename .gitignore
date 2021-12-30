@@ -1,3 +1,12 @@
+# Editors
+.vscode
+
+# Maven
+.mvn
+
+
+target/
+
 # Compiled class file
 *.class
 

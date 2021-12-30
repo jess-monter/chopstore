@@ -24,14 +24,9 @@
                 </div>
                 <div class="col">
                     <div class="row align-items-center">
-                        <div class="col-2">
-                            <div class="row me-1">
-                                <input type=number value="1" min="1" th:max="${producto.cantidad}">
-                            </div>
-                        </div>
                         <div class="col">
                             <div class="row">
-                                <button th:unless="${producto.cantidad == 0}" type="button" class="btn btn-lg btn-block btn-claro-negro">Agregar al carrito<i class="fas fa-cart-plus" style="margin-left: 5%"></i></button>
+                                <button th:unless="${producto.cantidad == 0}" type="button" class="btn btn-lg btn-block btn-claro-negro" id="add-to-cart" th:data-idproducto="${producto.idproducto}" th:data-name="${producto.nombre}" th:data-price="${producto.precio}" th:data-imagen="${producto.imagen}">Agregar al carrito<i class="fas fa-cart-plus" style="margin-left: 5%"></i></button>
                                 <button th:if="${producto.cantidad == 0}" type="button" class="btn btn-lg btn-block btn-secondary" disabled>Agregar al carrito<i class="fas fa-cart-plus" style="margin-left: 5%"></i></button>
                             </div>
                         </div>

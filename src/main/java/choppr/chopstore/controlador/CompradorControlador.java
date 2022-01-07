@@ -122,12 +122,10 @@ public class CompradorControlador {
      * @return la página de producto
      */
 
-    @ GetMapping ("/carrito")
+    @ GetMapping ("/compra")
     @ Secured ("ROLE_COMPRADOR")
-    public String carrito (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
-        String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
-        System.out.println(idusuario);
-        return "carrito";
+    public String compra (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
+        return "compra";
     }
 
 }

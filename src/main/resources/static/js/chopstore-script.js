@@ -62,12 +62,13 @@ var shoppingCart = (function() {
     cart = [];
     
     // Constructor
-    function Item(name, product_id, price, count, imagen) {
+    function Item(name, product_id, price, count, imagen, stock) {
       this.name = name;
       this.product_id = product_id;
       this.price = price;
       this.count = count;
       this.imagen  = imagen;
+      this.stock = stock;
     }
     
     // Guarda el carrito en session storage
@@ -87,15 +88,20 @@ var shoppingCart = (function() {
     var obj = {};
     
     // Agrega al carrito
-    obj.addItemToCart = function(name, product_id, price, count, imagen) {
+    obj.addItemToCart = function(name, product_id, price, count, imagen, stock) {
       for(var item in cart) {
         if(cart[item].product_id === product_id) {
-          cart[item].count ++;
-          saveCart();
+          if ( cart[item].count + 1 <= stock ) {
+            cart[item].count ++;
+            saveCart();
+          }
           return;
         }
       }
-      var item = new Item(name, product_id, price, count, imagen);
+      if (stock === 0) {
+        return;
+      }
+      var item = new Item(name, product_id, price, count, imagen, stock);
       cart.push(item);
       saveCart();
     }
@@ -185,12 +191,12 @@ var shoppingCart = (function() {
 
   $('#add-to-cart').click(function(event) {
     event.preventDefault();
-    console.log("Agregar al carrito");
     var name = $(this).data('name');
     var price = Number($(this).data('price'));
     var product_id = $(this).data('idproducto');
     var imagen = $(this).data('imagen');
-    shoppingCart.addItemToCart(name, product_id, price, 1, imagen);
+    var stock = $(this).data('stock');
+    shoppingCart.addItemToCart(name, product_id, price, 1, imagen, stock);
     displayCart();
   });
 
@@ -209,8 +215,8 @@ var shoppingCart = (function() {
         + "<td>" + cartArray[i].name + "</td>" 
         + "<td>$" + Number(cartArray[i].price).toFixed(2) + "</td>"
         + "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-claro-negro' data-idproducto=" + cartArray[i].product_id + ">-</button>"
-        + "<input type='number' id='number-input' class='item-count form-control' data-idproducto='" + cartArray[i].product_id + "' value='" + cartArray[i].count + "'>"
-        + "<button class='plus-item btn btn-claro-negro input-group-addon' data-idproducto=" + cartArray[i].product_id + ">+</button></div></td>"
+        + "<input type='number' id='number-input' min='1' max='"+ cartArray[i].stock + "' onFocus='return false' onKeyDown='return false' class='item-count form-control' data-idproducto='" + cartArray[i].product_id + "' value='" + cartArray[i].count + "'>"
+        + "<button class='plus-item btn btn-claro-negro input-group-addon' data-stock=" + cartArray[i].stock  + " data-idproducto=" + cartArray[i].product_id + ">+</button></div></td>"
         + "<td><button type='button' class='delete-item btn btn-danger' data-idproducto=" + cartArray[i].product_id + ">x</button></td>"
         + " = " 
         + "<td>$" + cartArray[i].total + "</td>"
@@ -219,6 +225,24 @@ var shoppingCart = (function() {
     $('.show-cart').html(output);
     $('.total-cart').html(shoppingCart.totalCart());
     $('.total-count').html(shoppingCart.totalCount());
+  }
+
+  function displayCartCheckout() {
+    var cartArray = shoppingCart.listCart();
+    var output = "";
+    for(var i in cartArray) {
+      output += "<li class='list-group-item d-flex justify-content-between lh-condensed'>"
+        + "<div>"
+        +"<h6 class='my-0'>" + cartArray[i].name + "</h6>"
+        +"<small class='text-muted'>$" + Number(cartArray[i].price).toFixed(2) + " x " + cartArray[i].count + "</small>"
+        +"</div>"
+        +"<span class='text-muted'>$" + Number(cartArray[i].price *  cartArray[i].count).toFixed(2) + "</span>"
+        + "</li>";
+    }
+    output += "<li class='list-group-item d-flex justify-content-between'>"
+      + "<span>Total (MXN)</span>"
+      + "<strong>$" + Number(shoppingCart.totalCart()).toFixed(2) + "</strong>"
+    $('.show-cart-checkout').html(output);
   }
 
   
@@ -237,8 +261,13 @@ var shoppingCart = (function() {
 
 
   $('.show-cart').on("click", ".plus-item", function(event) {
-    var product_id = $(this).data('idproducto')
-    shoppingCart.addItemToCart(null, product_id, null, 1, null);
+    var product_id = $(this).data('idproducto');
+    var name = $(this).data('name');
+    var stock = $(this).data('stock');
+    var price = Number($(this).data('price'));
+    var imagen = $(this).data('imagen');
+    var stock = $(this).data('stock');
+    shoppingCart.addItemToCart(name, product_id, price, 1, imagen, stock);
     displayCart();
   })
   
@@ -251,4 +280,4 @@ var shoppingCart = (function() {
   });
   
   displayCart();
-  
+  displayCartCheckout();

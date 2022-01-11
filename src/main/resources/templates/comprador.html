@@ -16,7 +16,7 @@
                 <p class="fw-bold fs-4 txt-resalte">Productos destacados<hr class="txt-resalte"></p>
             </div>
             <div class="row">
-                <h5>Sugerido para tí</h5>
+                <h5>Sugerido para ti</h5>
                 <div class="col" th:each="producto : ${recomendaciones}">
                     <a th:unless="${producto == null}" href="#" th:onclick="'consultaProducto (' + ${producto.idproducto} + ')'" style="text-decoration: none">
                         <div class="card tarj-prod">

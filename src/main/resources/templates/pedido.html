@@ -219,7 +219,7 @@
                   </div>
                   <hr class="mb-4">
                   <div class="d-grid gap-2">
-                    <button class="btn btn-primary btn-lg" onClick="validaDatosEnvio()" type="button">Pagar</button>
+                    <button class="btn btn-primary btn-lg" onClick="confirmacionContinuar()" type="button">Pagar</button>
                   </div>
                 </form>
               </div>
@@ -247,19 +247,12 @@
             return valido
         }
 
-        function envioContinuar () {
-            if (validaDatosEnvio ()) {
-                $ ("#icono-pago").css ("background-color", "aqua")
-                $ ("#c1").collapse ('toggle')
-                $ ("#c2").collapse ('toggle')
-            }
-        }
-
         function confirmacionContinuar () {
-            console.log(valido);
             let valido = false;
             console.log(valido);
-            valido = validaDatosEnvio();
+            if ( validaDatosEnvio() ) {
+              solicitud("post", "/comprar", {cart: {items: sessionStorage.getItem('shoppingCart')}});
+            }
 
             // Hacer petición post a /comprar
         }

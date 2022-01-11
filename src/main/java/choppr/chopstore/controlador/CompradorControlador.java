@@ -122,10 +122,25 @@ public class CompradorControlador {
      * @return la página de producto
      */
 
-    @ GetMapping ("/compra")
+    @ GetMapping ("/pedido")
     @ Secured ("ROLE_COMPRADOR")
-    public String compra (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
-        return "compra";
+    public String pedido (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
+        return "pedido";
     }
 
+    /**
+     * Atiende una petición de publicar reseña
+     * @param peticion es el contenedor con los parámetros de la petición
+     * @param autentificacion es el token de autentificación del usuario
+     * @param modelo es el contenedor con la información que se envía a la página
+     * @return la página de producto
+     */
+
+    @ PostMapping ("/comprar")
+    @ Secured ("ROLE_COMPRADOR")
+    public String comprar (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
+        String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
+        String carrito = peticion.getParameter("cart");
+        return "redirect:/producto?idproducto=";
+    }
 }

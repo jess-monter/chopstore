@@ -198,14 +198,20 @@ var shoppingCart = (function() {
     var imagen = $(this).data('imagen');
     var stock = $(this).data('stock');
     shoppingCart.addItemToCart(name, product_id, price, 1, imagen, stock);
+    $("#comprar-ahora").removeClass("btn btn-lg btn-block btn-claro-negro disabled").addClass("btn btn-lg btn-block btn-claro-negro"); 
     displayCart();
   });
 
   $('.clear-cart').click(function() {
     shoppingCart.clearCart();
     displayCart();
+    $("#comprar-ahora").removeClass("btn btn-lg btn-block btn-claro-negro").addClass("btn btn-lg btn-block btn-claro-negro disabled"); 
   });
   
+  $('#cierraSesion').click(function() {
+    shoppingCart.clearCart();
+    displayCart();
+  });
   
   function displayCart() {
     var cartArray = shoppingCart.listCart();
@@ -226,6 +232,9 @@ var shoppingCart = (function() {
     $('.show-cart').html(output);
     $('.total-cart').html(shoppingCart.totalCart());
     $('.total-count').html(shoppingCart.totalCount());
+    if (totalCount == 0) {
+      $("#comprar-ahora").removeClass("btn btn-lg btn-block btn-claro-negro").addClass("btn btn-lg btn-block btn-claro-negro disabled"); 
+    }
   }
 
   function displayCartCheckout() {

@@ -16,39 +16,62 @@
     <header>
         <div sec:authorize="hasRole('ROLE_COMPRADOR')" th:replace="cabecera :: cabecera-comprador"></div>
         <div sec:authorize="hasRole('ROLE_VENDEDOR')" th:replace="cabecera :: cabecera-vendedor"></div>
-        <div sec:authorize="isAnonymous()" th:replace="cabecera :: cabecera-inicio"></div>
+        <!--<div sec:authorize="isAnonymous()" th:replace="cabecera :: cabecera-inicio"></div>-->
     </header>
-
-    <div class="mx-auto mt-3 px-auto py-3 container mb-auto flex-fill align-items-center d-flex" id="main-body">
-        <div class="container my-auto">
-            <div class="row row-cols-1 row-cols-lg-2 mx-auto my-auto">
-                <div class="col mx-auto text-center">
-                    <img class="img-fluid max-width: 80%;" style="height: auto; object-fit: contain" th:src="@{/img/chopstore-black.png}"></img>
-                </div>
-                <div class="col my-auto"> 
-                    <form th:action="@{/login}" method="post" sec:authorize="isAnonymous()">
+    <section class="vh-100" style="background-color: #0d7377;">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+              <div class="card" style="border-radius: 1rem;">
+                <div class="row g-0">
+                  <div class="col-md-6 col-lg-5 d-none d-md-block">
+                    <img
+                      th:src="@{/img/portada-inicio.png}"
+                      alt="login form"
+                      class="img-fluid" style="border-radius: 1rem 0 0 1rem; height: 100%;"
+                    />
+                  </div>
+                  <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                    <div class="card-body p-4 p-lg-5 text-black">
+      
+                      <form th:action="@{/login}" method="post" sec:authorize="isAnonymous()">
                         <div class="form-group mb-2">
                             <div th:unless="${regExito == null}" class="alert alert-success">Te has registrado con éxito. Revísa tu correo para obtener tu contraseña.</div>
                             <div th:if="${param.error}" class="alert alert-danger">Usuario o contraseña inválidos.</div>
                             <div th:if="${param.logout}" class="alert alert-success">Ha cerrado sesión.</div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3 pb-1">
+                            <img
+                                th:src="@{/img/chopstore-black.png}"
+                                alt="login form"
+                                class="img-fluid" style="border-radius: 1rem 0 0 1rem;"
+                            />
+                        </div>
+                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicia sesión con tu cuenta</h5>
+                        <div class="form-outline mb-4">
                             <label for="username">Correo Electrónico:</label>
-                            <input type="email" class="form-control" id="username" name="email" aria-describedby="emailHelp" placeholder="ejemplo@ejemplo.com" required>
+                            <input type="email" class="form-control form-control-md" id="username" name="email" placeholder="ejemplo@ejemplo.com" required/>
                             <small id="emailHelp" class="form-text text-muted">Tu correo no será compartido.</small>
                         </div>
-                        <div class="form-group">
-                            <label for="password">Ingresa tu contraseña:</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="contraseña" required>
+                        <div class="form-outline mb-4">
+                            <label for="password" class="form-label">Ingresa tu contraseña:</label>
+                            <input type="password" class="form-control form-control-md" id="password" name="password" placeholder="Contraseña" required/>
                         </div>
-                        <div class="mt-3 mx-3 d-flex justify-content-evenly">
-                            <a class="btn btn-med-blanco" th:href="@{/register}">Regístrate</a>
-                            <button type="submit" class="btn btn-claro-negro">Inicia Sesión</button>
+                        <div class="pt-1 mb-4">
+                            <button class="btn btn-dark btn-md btn-block" type="submit">Iniciar Sesión</button>
                         </div>
-                    </form>
-                    <h1 sec:authorize="isAuthenticated()">Usted ya inició sesión.</h1>
+                        <p class="mb-5 pb-lg-2" style="color: #393f81;">¿No tienes una cuenta? <a th:href="@{/register}" style="color: #393f81;">Regístrate aquí.</a></p>
+                      </form>
+                      <h1 sec:authorize="isAuthenticated()">Ya has iniciado sesión.</h1>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js'></script>
+    </section>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js'></script>
+    <script type="text/javascript" th:src="@{/js/chopstore-script.js}"></script>
     </body>
 </html>

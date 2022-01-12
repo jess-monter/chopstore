@@ -53,6 +53,7 @@ function solicitud (metodo, direccion, parametros) {
     formulario.submit ()
 }
 
+
 // ************************************************
 // Carrito de compras
 // ************************************************

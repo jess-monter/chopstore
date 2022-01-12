@@ -2,7 +2,9 @@ package choppr.chopstore.modelo;
 
 import lombok.Data;
 import javax.persistence.*;
+
 import java.time.LocalDate;
+
 
 /**
  * Clase que representa una instancia de entidad de la tabla compra en la base de datos

@@ -19,6 +19,30 @@ import org.springframework.stereotype.Repository;
 @ Repository
 public interface CompraRepositorio extends JpaRepository <Compra, Integer> {
 
+
+    /**
+     * Realiza una consulta que recupera el producto con el identificador especificado
+     * @param idproducto es el identificador del producto
+     * @return el producto recuperado o null si no exíste el producto
+     */
+
+    public Compra findCompraByIdcompra (Integer idcompra);
+
+    /**
+     * Inserta o actualiza, si ya exíste, la compra especificada de la base de datos
+     * @param compra es la compra a insertar o actualizar
+     * @return la compra guardada
+     */
+
+    public <S extends Compra> S save (S compra);
+
+    /**
+     * Elimina, si exíste, la compra especificada de la base de datos
+     * @param compra es la compra a eliminar
+     */
+
+    public void delete (Compra compra);
+
     /**
      * Realiza una consulta que recupera todas las compras que ha hecho un usuario de un cierto producto
      * @param idusuario el identificador del usuario

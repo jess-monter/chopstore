@@ -20,6 +20,14 @@ import org.springframework.stereotype.Repository;
 public interface InvolucrarRepositorio extends JpaRepository <Involucrar, IdInvolucrar> {
     
     /**
+     * Inserta o actualiza, si ya exíste, la compra especificada de la base de datos
+     * @param involucrar es la compra a insertar o actualizar
+     * @return la relacion guardada
+     */
+
+    public <S extends Involucrar> S save (S involucrar);
+
+    /**
      * Realiza una consulta que recupera el identificador y el total de veces que ha sido comprado, de los cuatro productos más vendidos
      * @return una lista con los resultados de la consulta
      */

@@ -5,16 +5,27 @@ import choppr.chopstore.servicio.ProductoServicio;
 import choppr.chopstore.datos.ResenaDatos;
 import choppr.chopstore.servicio.ResenaServicio;
 import choppr.chopstore.servicio.impl.UsuarioServicio;
+import choppr.chopstore.datos.CompraDatos;
+import choppr.chopstore.servicio.CompraServicio;
+import choppr.chopstore.datos.InvolucrarDatos;
+import choppr.chopstore.servicio.InvolucrarServicio;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
+
+import java.time.LocalDate;
+
 import javax.servlet.http.HttpServletRequest;
+
+import org.json.*;
+
 
 /**
  * Clase que atiende las peticiones de un comprador al servidor
@@ -35,6 +46,12 @@ public class CompradorControlador {
 
     @ Autowired
     private UsuarioServicio usuarioServicio;
+
+    @Autowired
+    private CompraServicio compraServicio;
+
+    @Autowired
+    private InvolucrarServicio involucrarServicio;
 
     /**
      * Atiende una petición de la página de inicio cuando se ha iniciado sesión como comprador
@@ -115,13 +132,12 @@ public class CompradorControlador {
     }
 
     /**
-     * Atiende una petición de publicar reseña
+     * Atiende una petición de revisar pedido
      * @param peticion es el contenedor con los parámetros de la petición
      * @param autentificacion es el token de autentificación del usuario
      * @param modelo es el contenedor con la información que se envía a la página
      * @return la página de producto
      */
-
     @ GetMapping ("/pedido")
     @ Secured ("ROLE_COMPRADOR")
     public String pedido (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
@@ -129,18 +145,39 @@ public class CompradorControlador {
     }
 
     /**
-     * Atiende una petición de publicar reseña
+     * Atiende una petición de realización de compra
      * @param peticion es el contenedor con los parámetros de la petición
      * @param autentificacion es el token de autentificación del usuario
      * @param modelo es el contenedor con la información que se envía a la página
      * @return la página de producto
      */
-
-    @ PostMapping ("/comprar")
+    @ RequestMapping (value="/comprar", method=RequestMethod.POST)
     @ Secured ("ROLE_COMPRADOR")
     public String comprar (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
         String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
         String carrito = peticion.getParameter("cart");
-        return "redirect:/producto?idproducto=";
+        JSONArray carrito_p = new JSONArray(carrito);
+        LocalDate fecha = LocalDate.now();
+        CompraDatos compra = compraServicio.hazCompra(idusuario, 7000.00, fecha);
+        for(int i=0; i<carrito_p.length(); i++) {
+            Integer cantidad = carrito_p.getJSONObject(i).getInt("count");
+            Integer productoId = carrito_p.getJSONObject(i).getInt("product_id");
+            InvolucrarDatos involucrar = involucrarServicio.agregaProductosCompra(compra.idcompra, productoId, cantidad);
+        }
+        
+        return "redirect:/thankyou";
+    }
+
+    /**
+     * Atiende una petición de agradecimiento
+     * @param peticion es el contenedor con los parámetros de la petición
+     * @param autentificacion es el token de autentificación del usuario
+     * @param modelo es el contenedor con la información que se envía a la página
+     * @return la página de producto
+     */
+    @ GetMapping ("/thankyou")
+    @ Secured ("ROLE_COMPRADOR")
+    public String thankyou (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
+        return "thankyou";
     }
 }

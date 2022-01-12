@@ -31,8 +31,7 @@
 
 .tarj-prod {
     border-style: none;
-    border-radius: 50px;
-    box-shadow: 4px 4px 8px black;
+    box-shadow: 1px 1px 2px black;
     margin-bottom: 10%
 }
 

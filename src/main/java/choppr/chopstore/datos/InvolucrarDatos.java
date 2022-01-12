@@ -1,8 +1,6 @@
 package choppr.chopstore.datos;
 
-import choppr.chopstore.modelo.Compra;
-
-import java.time.LocalDate;
+import choppr.chopstore.modelo.Involucrar;
 
 import lombok.Data;
 
@@ -15,24 +13,19 @@ import lombok.Data;
  * @version 1.0
  */
 @ Data
-public class CompraDatos {
+public class InvolucrarDatos {
 
-
-    public Integer idcompra;
-    private Integer idusuario;
-    private Double pago;
-    private LocalDate fecha;
-
-
+    private Integer idcompra;
+    private Integer idproducto;
+    private Integer cantidad;
+    
     /**
      * Construye un nuevo objeto CompraDatos a partir de una instancia de entidad de la tabla Compra
      * @param producto un objeto Compra recuperado de la base de datos
      */
-    public CompraDatos(Compra compra) {
-        idcompra = compra.getIdcompra();
-        idusuario = compra.getUsuario().getIdusuario();
-        pago = compra.getPago();
-        fecha = compra.getFecha();
+    public InvolucrarDatos(Involucrar involucrar) {
+        idcompra = involucrar.getIdcompra();
+        idproducto = involucrar.getIdproducto();
+        cantidad = involucrar.getCantidad();
     }
-
 }

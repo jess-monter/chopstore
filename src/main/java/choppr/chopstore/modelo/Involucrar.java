@@ -30,11 +30,11 @@ public class Involucrar {
     @ Column (name = "cantidad")
     private Integer cantidad;
     
-    @ JoinColumn (name = "idcompra", referencedColumnName = "idcompra")
+    @ JoinColumn (name = "idcompra", referencedColumnName = "idcompra", insertable = false, updatable = false)
     @ ManyToOne (optional = false)
     private Compra compra;
 
-    @ JoinColumn (name = "idproducto", referencedColumnName = "idproducto")
+    @ JoinColumn (name = "idproducto", referencedColumnName = "idproducto", insertable = false, updatable = false)
     @ ManyToOne (optional = false)
     private Producto producto;
 

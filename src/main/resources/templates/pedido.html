@@ -249,11 +249,10 @@
 
         function confirmacionContinuar () {
             let valido = false;
-            //if ( validaDatosEnvio() ) {
-              
-            //}
-            solicitud("post", "/comprar", {cart: sessionStorage.getItem('shoppingCart')});
-            // Hacer petición post a /comprar
+            if ( true ) {
+              solicitud("post", "/comprar", {cart: sessionStorage.getItem('shoppingCart')});
+              shoppingCart.clearCart();
+            }
         }
 
     </script>

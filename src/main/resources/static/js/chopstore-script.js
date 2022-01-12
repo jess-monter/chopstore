@@ -232,9 +232,7 @@ var shoppingCart = (function() {
     $('.show-cart').html(output);
     $('.total-cart').html(shoppingCart.totalCart());
     $('.total-count').html(shoppingCart.totalCount());
-    if (totalCount == 0) {
-      $("#comprar-ahora").removeClass("btn btn-lg btn-block btn-claro-negro").addClass("btn btn-lg btn-block btn-claro-negro disabled"); 
-    }
+
   }
 
   function displayCartCheckout() {

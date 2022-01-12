@@ -80,4 +80,33 @@ public class CorreoServicio implements EnviadorCorreo {
             throw new IllegalStateException ("Falla en enviar correo.");
         }
     }
+
+    /**
+     * Envía la contraseña al destinatario especificado
+     * @param destinatario es el correo del usuario que recibe la contraseña
+     * @param contrasena es la contraseña del usuario que recibe tras su registro
+     */
+
+    @ Override
+    @ Async
+    public void enviaConfirmacionCompra (String destinatario, String idcompra) {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage ();
+            MimeMessageHelper helper = new MimeMessageHelper (mimeMessage, true, "UTF-8");
+            helper.setFrom ("chopstore.tester@gmail.com");
+            helper.setTo(destinatario);
+            helper.setSubject("Confirmación de compra");
+            String body = "<body><div style='background-color: #0d7377; color: white; padding: 4em'>"
+                          + "<div><p style='font-size: 4em'>¡Gracias por tu compra!</p></div>"
+                          + "<div><img src='cid:ChopstoreLogo' alt='Chopstore'></div>"
+                          + "<div><p style='font-size: 2em'>Tus productos se encuentran en proceso de surtido."
+                          + "</div></body>";
+            helper.setText (body, true);
+            helper.addInline ("ChopstoreLogo", new ClassPathResource ("/static/img/chopstore-correo.png"));
+            mailSender.send (mimeMessage);
+        } catch (MessagingException e){
+            LOGGER.error ("Falla en enviar correo.", e);
+            throw new IllegalStateException ("Falla en enviar correo.");
+        }
+    }
 }

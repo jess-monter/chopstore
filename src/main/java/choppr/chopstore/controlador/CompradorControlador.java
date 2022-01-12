@@ -10,6 +10,8 @@ import choppr.chopstore.servicio.CompraServicio;
 import choppr.chopstore.datos.InvolucrarDatos;
 import choppr.chopstore.servicio.InvolucrarServicio;
 
+import choppr.chopstore.servicio.impl.CorreoServicio;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,6 +54,9 @@ public class CompradorControlador {
 
     @Autowired
     private InvolucrarServicio involucrarServicio;
+
+    @Autowired
+    private CorreoServicio correoServicio;
 
     /**
      * Atiende una petición de la página de inicio cuando se ha iniciado sesión como comprador
@@ -155,6 +160,7 @@ public class CompradorControlador {
     @ Secured ("ROLE_COMPRADOR")
     public String comprar (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
         String idusuario = usuarioServicio.obtenIdusuario (autentificacion);
+        String correo = usuarioServicio.obtenCorreousuario(autentificacion);
         String carrito = peticion.getParameter("cart");
         JSONArray carrito_p = new JSONArray(carrito);
         LocalDate fecha = LocalDate.now();
@@ -164,8 +170,8 @@ public class CompradorControlador {
             Integer productoId = carrito_p.getJSONObject(i).getInt("product_id");
             InvolucrarDatos involucrar = involucrarServicio.agregaProductosCompra(compra.idcompra, productoId, cantidad);
         }
-        
-        return "redirect:/thankyou";
+        correoServicio.enviaConfirmacionCompra(correo, "Gracias por tu compra");
+        return "redirect:/thankyou?idcompra=" + compra.idcompra;
     }
 
     /**

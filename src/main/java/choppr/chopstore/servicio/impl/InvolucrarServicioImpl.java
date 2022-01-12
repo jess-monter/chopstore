@@ -51,6 +51,11 @@ public class InvolucrarServicioImpl implements InvolucrarServicio {
 
         involucrarRepositorio.save(involucrar);
 
+        producto.setCantidad(producto.getCantidad() - cantidad);
+
+        productoRepositorio.save(producto);
+
+
         return new InvolucrarDatos(involucrar);
     }
     

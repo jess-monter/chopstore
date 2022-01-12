@@ -61,4 +61,15 @@ public class UsuarioServicio implements UserDetailsService {
         return usuario.getIdusuario ().toString ();
     }
 
+    /**
+     * Obtiene una representación en cadena del identificador del usuario que realiza una petición
+     * @param autentificacion es el token de autentificación del usuario
+     * @return el identificador del usuario
+     */
+
+    public String obtenCorreousuario (Authentication autentificacion) {
+        Usuario usuario = (Usuario) autentificacion.getPrincipal ();
+        return usuario.getCorreo ();
+    }
+
 }

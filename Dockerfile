@@ -1,0 +1,2 @@
+FROM maven
+COPY . /app

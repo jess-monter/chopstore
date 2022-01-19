@@ -143,7 +143,7 @@ public class CompradorControlador {
      * @param modelo es el contenedor con la información que se envía a la página
      * @return la página de producto
      */
-    @ GetMapping ("/pedido")
+    @ PostMapping ("/pedido")
     @ Secured ("ROLE_COMPRADOR")
     public String pedido (HttpServletRequest peticion, Authentication autentificacion, Model modelo) {
         return "pedido";

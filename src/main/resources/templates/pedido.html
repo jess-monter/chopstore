@@ -249,7 +249,7 @@
 
         function confirmacionContinuar () {
             let valido = false;
-            if ( true ) {
+            if ( validaDatosEnvio () ) {
               solicitud("post", "/comprar", {cart: sessionStorage.getItem('shoppingCart')});
               shoppingCart.clearCart();
             }

@@ -89,18 +89,37 @@ public class CorreoServicio implements EnviadorCorreo {
 
     @ Override
     @ Async
-    public void enviaConfirmacionCompra (String destinatario, String idcompra) {
+    public void enviaConfirmacionCompra (String destinatario, String idcompra, String [] productos) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage ();
             MimeMessageHelper helper = new MimeMessageHelper (mimeMessage, true, "UTF-8");
             helper.setFrom ("chopstore.tester@gmail.com");
             helper.setTo(destinatario);
             helper.setSubject("Confirmación de compra");
+            String products_table = "";
+
+            for (int i=0; i<productos.length; i++) {
+                products_table += "<tr>"
+                               + "<td>"
+                               + productos[i]
+                               +"</td>"
+                               +"</tr>";
+            }
+
             String body = "<body><div style='background-color: #0d7377; color: white; padding: 4em'>"
-                          + "<div><p style='font-size: 4em'>¡Gracias por tu compra!</p></div>"
+                          + "<div><p style='font-size: 4em'>¡Gracias por tu compra!"
+                          + "<p> Folio: "
+                          + idcompra
+                          + "</p>"
+                          + "</p></div>"
                           + "<div><img src='cid:ChopstoreLogo' alt='Chopstore'></div>"
                           + "<div><p style='font-size: 2em'>Tus productos se encuentran en proceso de surtido."
+                          + "<p> Resumen de tu compra </p>"
+                          + "<table>"
+                          + products_table
+                          + "</table>"
                           + "</div></body>";
+
             helper.setText (body, true);
             helper.addInline ("ChopstoreLogo", new ClassPathResource ("/static/img/chopstore-correo.png"));
             mailSender.send (mimeMessage);

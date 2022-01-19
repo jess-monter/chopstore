@@ -30,7 +30,8 @@ public interface EnviadorCorreo {
      * Envía la contraseña al destinatario especificado
      * @param destinatario es el correo del usuario que recibe la confirmacion
      * @param idcompra el identificador de la compra
+     * @param productos los productos involucrados en la compra
      */
 
-    public void enviaConfirmacionCompra (String destinatario, String idcompra);
+    public void enviaConfirmacionCompra (String destinatario, String idcompra, String [] productos);
 }

@@ -15,6 +15,7 @@ import choppr.chopstore.servicio.impl.CorreoServicio;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,12 +166,15 @@ public class CompradorControlador {
         JSONArray carrito_p = new JSONArray(carrito);
         LocalDate fecha = LocalDate.now();
         CompraDatos compra = compraServicio.hazCompra(idusuario, 7000.00, fecha);
+        String[] productos = new String[carrito_p.length()];
         for(int i=0; i<carrito_p.length(); i++) {
             Integer cantidad = carrito_p.getJSONObject(i).getInt("count");
             Integer productoId = carrito_p.getJSONObject(i).getInt("product_id");
+            productos[i] = carrito_p.getJSONObject(i).getString("name");
             InvolucrarDatos involucrar = involucrarServicio.agregaProductosCompra(compra.idcompra, productoId, cantidad);
         }
-        correoServicio.enviaConfirmacionCompra(correo, "Gracias por tu compra");
+        
+        correoServicio.enviaConfirmacionCompra(correo, compra.idcompra.toString(), productos);
 
         return "thankyou";
     }
